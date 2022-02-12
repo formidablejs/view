@@ -14,6 +14,8 @@ Building blocks for Formidable SPA's.
 craftsman new <app-name> --spa
 ```
 
+> `craftsman` will automatically publish `--spa` files and install `axios`.
+
 ### Existing Project
 
 npm:
@@ -34,7 +36,7 @@ yarn add @formidablejs/view axios --save
 craftsman publish --package=@formidablejs/view --tag=vendor --force
 ```
 
-> Only run in a new project.
+> Only run in an un-modified Existing Project.
 
 Security
 -------
