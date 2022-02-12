@@ -1,7 +1,7 @@
 {
   "name": "@formidablejs/view",
   "version": "0.0.1",
-  "description": "Formidable View",
+  "description": "Building blocks for Formidable SPA's",
   "author": "Donald Pakkies",
   "license": "MIT",
   "main": "lib/index.js",
