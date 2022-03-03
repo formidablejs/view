@@ -11,10 +11,10 @@ Building blocks for Formidable SPA's.
 ### Recommended
 
 ```bash
-craftsman new <app-name> --spa
+formidable new <app-name> --type full-stack --stack imba --scaffolding spa
 ```
 
-> `craftsman` will automatically publish `--spa` files and install `axios`.
+> The Formidable Installer will automatically publish `spa` scaffolding and install `axios`.
 
 ### Existing Project
 
@@ -33,7 +33,7 @@ yarn add @formidablejs/view axios --save
 ## Publish
 
 ```bash
-craftsman publish --package=@formidablejs/view --tag=vendor --force
+node craftsman publish:package --package=@formidablejs/view --tag=vendor --force
 ```
 
 > Only run in an un-modified Existing Project.
