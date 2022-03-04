@@ -33,7 +33,7 @@ yarn add @formidablejs/view axios --save
 ## Publish
 
 ```bash
-node craftsman publish:package --package=@formidablejs/view --tag=vendor --force
+node craftsman package:publish --package=@formidablejs/view --tag=vendor --force
 ```
 
 > Only run in an un-modified Existing Project.
