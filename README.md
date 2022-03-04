@@ -4,7 +4,7 @@ Building blocks for Formidable SPA's.
 
 ## Requirements
 
-  * [@formidablejs/framework](https://www.npmjs.com/package/@formidablejs/framework): `>=0.9.5`
+  * [@formidablejs/framework](https://www.npmjs.com/package/@formidablejs/framework): `>=0.9.10`
 
 ## Install
 
