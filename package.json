@@ -18,6 +18,9 @@
     "ts:build": "tsc",
     "ts:watch": "tsc -w"
   },
+  "peerDependencies": {
+    "@formidablejs/framework": ">=0.10.0"
+  },
   "devDependencies": {
     "@types/node": "^17.0.21",
     "imba": "^2.0.0-alpha.202",
