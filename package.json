@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "@types/node": "^17.0.21",
-    "imba": "^2.0.0-alpha.202",
+    "imba": "^2.0.0-alpha.204",
     "typescript": "^4.6.2"
   }
 }
