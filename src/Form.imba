@@ -97,22 +97,99 @@ export class Form
 		self
 
 	/**
+     * Send get request.
+     *
+     * @param {String} path route path.
+     * @returns {Promise}
+     */
+	def get path\String
+		self.sendRequest('get', path)
+	
+	/**
+     * Send head request.
+     *
+     * @param {String} path route path.
+     * @returns {Promise}
+     */
+	def head path\String
+		self.sendRequest('head', path)
+
+	/**
      * Send post request.
      *
      * @param {String} path route path.
      * @returns {Promise}
      */
 	def post path\String
+		self.sendRequest('post', path)
+	
+	/**
+     * Send put request.
+     *
+     * @param {String} path route path.
+     * @returns {Promise}
+     */
+	def put path\String
+		self.sendRequest('put', path)
+	
+	/**
+     * Send delete request.
+     *
+     * @param {String} path route path.
+     * @returns {Promise}
+     */
+	def delete path\String
+		self.sendRequest('delete', path)
+	
+	/**
+     * Send options request.
+     *
+     * @param {String} path route path.
+     * @returns {Promise}
+     */
+	def options path\String
+		self.sendRequest('options', path)
+	
+	/**
+     * Send delete request.
+     *
+     * @param {String} path route path.
+     * @returns {Promise}
+     */
+	def patch path\String
+		self.sendRequest('patch', path)
+
+	/**
+     * Send request.
+     *
+     * @param {String} method request method.
+     * @param {String} path route path.
+     * @returns {Promise}
+     */
+	def sendRequest method\String, path\String
 		self.isProcessing(true).fill!
 
 		await csrf!
 
-		window.axios.post(path, this.body!)
+		const args = [ path ]
+
+		if !['get', 'head', 'options'].includes(method.toLowerCase!)
+			args.push this.body!
+		else
+			let params = ''
+
+			for own key, value of self.body!
+				params += "&{key}={value}"
+			
+			if params !== ''
+				args[0] = path + (path.indexOf('&') !== -1 ? params : "?{params.substring(1)}")
+
+		window.axios[method.toLowerCase!](...args)
 			.then(do(response)
 				self.recentlySuccessful = true
 				self.form = self.body!
 
-				setTimeout(&, self.config.recentlySuccessful ?? 2000) do
+				setTimeout(&, self.config.recentlySuccessful || 2000) do
 					self.recentlySuccessful = false
 
 				Promise.resolve(response)

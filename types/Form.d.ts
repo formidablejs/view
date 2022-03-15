@@ -118,6 +118,38 @@ export class Form {
     */
     isProcessing(processing?: boolean): Form;
     /**
+         * Send get request.
+         *
+         * @param {String} path route path.
+         * @returns {Promise}
+         */
+    /**
+    *
+         * Send get request.
+         *
+         * @param {String} path route path.
+         * @returns {Promise}
+         
+    @param {String} path
+    */
+    get(path: string): Promise<any>;
+    /**
+         * Send head request.
+         *
+         * @param {String} path route path.
+         * @returns {Promise}
+         */
+    /**
+    *
+         * Send head request.
+         *
+         * @param {String} path route path.
+         * @returns {Promise}
+         
+    @param {String} path
+    */
+    head(path: string): Promise<any>;
+    /**
          * Send post request.
          *
          * @param {String} path route path.
@@ -133,6 +165,89 @@ export class Form {
     @param {String} path
     */
     post(path: string): Promise<any>;
+    /**
+         * Send put request.
+         *
+         * @param {String} path route path.
+         * @returns {Promise}
+         */
+    /**
+    *
+         * Send put request.
+         *
+         * @param {String} path route path.
+         * @returns {Promise}
+         
+    @param {String} path
+    */
+    put(path: string): Promise<any>;
+    /**
+         * Send delete request.
+         *
+         * @param {String} path route path.
+         * @returns {Promise}
+         */
+    /**
+    *
+         * Send delete request.
+         *
+         * @param {String} path route path.
+         * @returns {Promise}
+         
+    @param {String} path
+    */
+    delete(path: string): Promise<any>;
+    /**
+         * Send options request.
+         *
+         * @param {String} path route path.
+         * @returns {Promise}
+         */
+    /**
+    *
+         * Send options request.
+         *
+         * @param {String} path route path.
+         * @returns {Promise}
+         
+    @param {String} path
+    */
+    options(path: string): Promise<any>;
+    /**
+         * Send delete request.
+         *
+         * @param {String} path route path.
+         * @returns {Promise}
+         */
+    /**
+    *
+         * Send delete request.
+         *
+         * @param {String} path route path.
+         * @returns {Promise}
+         
+    @param {String} path
+    */
+    patch(path: string): Promise<any>;
+    /**
+         * Send request.
+         *
+         * @param {String} method request method.
+         * @param {String} path route path.
+         * @returns {Promise}
+         */
+    /**
+    *
+         * Send request.
+         *
+         * @param {String} method request method.
+         * @param {String} path route path.
+         * @returns {Promise}
+         
+    @param {String} method
+    @param {String} path
+    */
+    sendRequest(method: string, path: string): Promise<any>;
     /**
          * Get request body object.
          *
