@@ -182,7 +182,7 @@ export class Form
 				params += "&{key}={value}"
 			
 			if params !== ''
-				path = path + (path.indexOf('&') !== -1 ? params : "?{params.substring(1)}")
+				args[0] = path + (path.indexOf('&') !== -1 ? params : "?{params.substring(1)}")
 
 		window.axios[method.toLowerCase!](...args)
 			.then(do(response)
