@@ -61,6 +61,14 @@ export class Form
 		self.#fatal.response
 
 	/**
+	 * Check if request was successful.
+	 *
+	 * @var {Boolean}
+	 */
+	get isSuccessful?
+		self.#fatal.error == undefined && self.#fatal.error == null && self.hasErrors == false
+
+	/**
      * Check if form has been modified.
      *
      * @var {Boolean} dirty
@@ -209,6 +217,9 @@ export class Form
 				self.recentlySuccessful = true
 				self.form = self.body!
 
+				/** clear fatal error. */
+				self.#fatal = { error: null, response: null }
+
 				setTimeout(&, self.config.recentlySuccessful || 2000) do
 					self.recentlySuccessful = false
 
@@ -219,8 +230,10 @@ export class Form
 
 				/** set fatal error. */
 				if error.response.status !== 422 && typeof error.response.status === 'number'
-					self.#fatal.error = error.response.status
-					self.#fatal.response = error.response.data
+					self.#fatal = {
+						error: error.response.status
+						response: error.response.data
+					}
 
 				Promise.reject(error)
 			)
