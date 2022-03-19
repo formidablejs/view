@@ -76,6 +76,19 @@ export class Form {
     */
     get fatalError(): any;
     /**
+         * Check if request was successful.
+         *
+         * @var {Boolean}
+         */
+    /**
+    *
+         * Check if request was successful.
+         *
+         * @var {Boolean}
+         
+    */
+    get isSuccessfulΦ(): boolean;
+    /**
          * Check if form has been modified.
          *
          * @var {Boolean} dirty
