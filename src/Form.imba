@@ -11,6 +11,7 @@ export class Form
 		error: null
 		response: null
 	}
+	prop #success = false
 
 	/**
      * Instantiate form.
@@ -66,7 +67,7 @@ export class Form
 	 * @var {Boolean}
 	 */
 	get isSuccessful?
-		self.#fatal.error == undefined && self.#fatal.error == null && self.hasErrors == false
+		self.#success
 
 	/**
      * Check if form has been modified.
@@ -214,11 +215,15 @@ export class Form
 
 		window.axios[method.toLowerCase!](...args)
 			.then(do(response)
+				self.#success = true
 				self.recentlySuccessful = true
 				self.form = self.body!
 
 				/** clear fatal error. */
-				self.#fatal = { error: null, response: null }
+				self.#fatal = {
+					error: null
+					response: null
+				}
 
 				setTimeout(&, self.config.recentlySuccessful || 2000) do
 					self.recentlySuccessful = false
@@ -226,6 +231,8 @@ export class Form
 				Promise.resolve(response)
 			)
 			.catch(do(error)
+				self.#success = false
+
 				if error.response.status === 422 then self.errors = error.response.data.errors
 
 				/** set fatal error. */
