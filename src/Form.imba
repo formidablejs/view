@@ -7,9 +7,9 @@ export class Form
 	prop errors
 	prop formWasFilled
 	prop recentlySuccessful
-	prop #fatal = {
+	prop #fatal\{error: number; response: object} = {
 		error: null
-		message: null
+		response: null
 	}
 
 	/**
@@ -53,12 +53,12 @@ export class Form
 		self.#fatal.error !== null && self.#fatal.error !== undefined
 
 	/**
-	 * Get fatal error message.
+	 * Get fatal error.
 	 *
-	 * @var {String}
+	 * @var {Object|String}
 	 */
 	get fatalError
-		self.#fatal.message
+		self.#fatal.response
 
 	/**
      * Check if form has been modified.
