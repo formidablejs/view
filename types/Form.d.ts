@@ -87,7 +87,7 @@ export class Form {
          * @var {Boolean}
          
     */
-    get isSuccessfulΦ(): boolean;
+    get isSuccessfulΦ(): any;
     /**
          * Check if form has been modified.
          *
@@ -300,9 +300,11 @@ export class Form {
          
     */
     body(): any;
-    [$2]($$?: any): void;
+    [$3]($$?: any): void;
     [$1]: any;
+    [$2]: any;
 }
-declare const $2: unique symbol;
+declare const $3: unique symbol;
 declare const $1: unique symbol;
+declare const $2: unique symbol;
 export {};
