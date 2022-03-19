@@ -7,6 +7,10 @@ export class Form
 	prop errors
 	prop formWasFilled
 	prop recentlySuccessful
+	prop #fatal = {
+		error: null
+		message: null
+	}
 
 	/**
      * Instantiate form.
@@ -39,6 +43,22 @@ export class Form
      *
 	get hasErrors
 		Object.keys(self.errors).length > 0
+	
+	/**
+	 * Check if form was fatal.
+	 *
+	 * @var {Boolean}
+	 */
+	get isFatal?
+		self.#fatal.error !== null && self.#fatal.error !== undefined
+
+	/**
+	 * Get fatal error message.
+	 *
+	 * @var {String}
+	 */
+	get fatalError
+		self.#fatal.message
 
 	/**
      * Check if form has been modified.
@@ -196,6 +216,11 @@ export class Form
 			)
 			.catch(do(error)
 				if error.response.status === 422 then self.errors = error.response.data.errors
+
+				/** set fatal error. */
+				if error.response.status !== 422
+					self.#fatal.error = error.response.status
+					self.#fatal.message = error.response.data
 
 				Promise.reject(error)
 			)
