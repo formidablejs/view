@@ -40,11 +40,11 @@ export class Form {
          *
         get hasErrors
             Object.keys(self.errors).length > 0
-    
+        
         \/\**
-         * Check if form has been modified.
+         * Check if form was fatal.
          *
-         * @var {Boolean} dirty
+         * @var {Boolean}
          */
     /**
     *
@@ -54,8 +54,34 @@ export class Form {
          *
         get hasErrors
             Object.keys(self.errors).length > 0
-    
+        
         /**
+         * Check if form was fatal.
+         *
+         * @var {Boolean}
+         
+    */
+    get isFatalΦ(): boolean;
+    /**
+         * Get fatal error.
+         *
+         * @var {Object|String}
+         */
+    /**
+    *
+         * Get fatal error.
+         *
+         * @var {Object|String}
+         
+    */
+    get fatalError(): any;
+    /**
+         * Check if form has been modified.
+         *
+         * @var {Boolean} dirty
+         */
+    /**
+    *
          * Check if form has been modified.
          *
          * @var {Boolean} dirty
@@ -261,7 +287,9 @@ export class Form {
          
     */
     body(): any;
-    [$1]($$?: any): void;
+    [$2]($$?: any): void;
+    [$1]: any;
 }
+declare const $2: unique symbol;
 declare const $1: unique symbol;
 export {};
