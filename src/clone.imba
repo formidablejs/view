@@ -42,5 +42,5 @@ class Clone
  * @param {String[]|null} list
  * @returns {Clone}
  */
-def clone list\String[] = null
+export def clone list\String[] = null
 	new Clone(list)
