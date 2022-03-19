@@ -4,6 +4,7 @@ import { Form } from './Form'
 import { hasAttr } from './hasAttr'
 import { isWaiting } from './isWaiting'
 import { readProps } from './readProps'
+import { rescue } from './rescue'
 import { useForm } from './useForm'
 
 export {
@@ -13,5 +14,6 @@ export {
 	hasAttr
 	isWaiting
 	readProps
+	rescue
 	useForm
 }
