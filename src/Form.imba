@@ -218,9 +218,9 @@ export class Form
 				if error.response.status === 422 then self.errors = error.response.data.errors
 
 				/** set fatal error. */
-				if error.response.status !== 422
+				if error.response.status !== 422 && typeof error.response.status === 'number'
 					self.#fatal.error = error.response.status
-					self.#fatal.message = error.response.data
+					self.#fatal.response = error.response.data
 
 				Promise.reject(error)
 			)
