@@ -7,16 +7,21 @@ export class Form
 	prop errors
 	prop formWasFilled
 	prop recentlySuccessful
+	prop #fatal\{error: number; response: object} = {
+		error: null
+		response: null
+	}
+	prop #success = false
 
 	/**
      * Instantiate form.
      *
-     * @param {Object} form
+     * @param {Object|null} form
      * @param {object|null} config
      */
-	def constructor form, config = {}
-		self.form = form
-		self.config = config
+	def constructor form = {}, config = {}
+		self.form = form || {}
+		self.config = config || {}
 		self.processing = false
 		self.errors = {}
 		self.formWasFilled = false
@@ -39,6 +44,30 @@ export class Form
      *
 	get hasErrors
 		Object.keys(self.errors).length > 0
+	
+	/**
+	 * Check if form was fatal.
+	 *
+	 * @var {Boolean}
+	 */
+	get isFatal?
+		self.#fatal.error !== null && self.#fatal.error !== undefined
+
+	/**
+	 * Get fatal error.
+	 *
+	 * @var {Object|String}
+	 */
+	get fatalError
+		self.#fatal.response
+
+	/**
+	 * Check if request was successful.
+	 *
+	 * @var {Boolean}
+	 */
+	get isSuccessful?
+		self.#success
 
 	/**
      * Check if form has been modified.
@@ -186,8 +215,15 @@ export class Form
 
 		window.axios[method.toLowerCase!](...args)
 			.then(do(response)
+				self.#success = true
 				self.recentlySuccessful = true
 				self.form = self.body!
+
+				/** clear fatal error. */
+				self.#fatal = {
+					error: null
+					response: null
+				}
 
 				setTimeout(&, self.config.recentlySuccessful || 2000) do
 					self.recentlySuccessful = false
@@ -195,7 +231,16 @@ export class Form
 				Promise.resolve(response)
 			)
 			.catch(do(error)
+				self.#success = false
+
 				if error.response.status === 422 then self.errors = error.response.data.errors
+
+				/** set fatal error. */
+				if error.response.status !== 422 && typeof error.response.status === 'number'
+					self.#fatal = {
+						error: error.response.status
+						response: error.response.data
+					}
 
 				Promise.reject(error)
 			)

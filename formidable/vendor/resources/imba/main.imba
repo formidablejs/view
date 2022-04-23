@@ -1,4 +1,10 @@
 import './bootstrap'
+import { waitForProps } from './props'
 import { App } from './App'
 
-imba.mount <App>
+def main
+	await waitForProps!
+
+	imba.mount <App>
+
+main!

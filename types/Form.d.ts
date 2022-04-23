@@ -2,18 +2,18 @@ export class Form {
     /**
          * Instantiate form.
          *
-         * @param {Object} form
+         * @param {Object|null} form
          * @param {object|null} config
          */
     /**
     *
          * Instantiate form.
          *
-         * @param {Object} form
+         * @param {Object|null} form
          * @param {object|null} config
          
     */
-    constructor(form: any, config?: object | null);
+    constructor(form?: any | null, config?: object | null);
     form: any;
     config: any;
     processing: boolean;
@@ -40,11 +40,11 @@ export class Form {
          *
         get hasErrors
             Object.keys(self.errors).length > 0
-    
+        
         \/\**
-         * Check if form has been modified.
+         * Check if form was fatal.
          *
-         * @var {Boolean} dirty
+         * @var {Boolean}
          */
     /**
     *
@@ -54,8 +54,47 @@ export class Form {
          *
         get hasErrors
             Object.keys(self.errors).length > 0
-    
+        
         /**
+         * Check if form was fatal.
+         *
+         * @var {Boolean}
+         
+    */
+    get isFatalΦ(): boolean;
+    /**
+         * Get fatal error.
+         *
+         * @var {Object|String}
+         */
+    /**
+    *
+         * Get fatal error.
+         *
+         * @var {Object|String}
+         
+    */
+    get fatalError(): any;
+    /**
+         * Check if request was successful.
+         *
+         * @var {Boolean}
+         */
+    /**
+    *
+         * Check if request was successful.
+         *
+         * @var {Boolean}
+         
+    */
+    get isSuccessfulΦ(): any;
+    /**
+         * Check if form has been modified.
+         *
+         * @var {Boolean} dirty
+         */
+    /**
+    *
          * Check if form has been modified.
          *
          * @var {Boolean} dirty
@@ -261,7 +300,11 @@ export class Form {
          
     */
     body(): any;
-    [$1]($$?: any): void;
+    [$3]($$?: any): void;
+    [$1]: any;
+    [$2]: any;
 }
+declare const $3: unique symbol;
 declare const $1: unique symbol;
+declare const $2: unique symbol;
 export {};

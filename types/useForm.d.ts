@@ -1,2 +1,2 @@
-export function useForm(body: any, config?: {}): Form;
+export function useForm(body?: {}, config?: {}): Form;
 import { Form } from "./Form";
