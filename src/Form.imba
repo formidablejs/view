@@ -16,7 +16,7 @@ export class Form
 	/**
      * Instantiate form.
      *
-     * @param {Object} form
+     * @param {Object|null} form
      * @param {object|null} config
      */
 	def constructor form = {}, config = {}
