@@ -3,12 +3,28 @@ import { isWaiting } from '@formidablejs/view'
 import { readProps } from '@formidablejs/view'
 
 let props = { }
+let ready = false
 
-export tag Props
+tag Props
 	def render
 		<self>
-			if isWaiting(props) && hasAttr(self) then props = readProps(self)
+			if isWaiting(props) && hasAttr(self)
+				props = readProps(self)
+				ready = true
+			elif !hasAttr(self)
+				ready = true
 
-		imba.commit!
+def waitForProps
+	const condition = do ready === true
 
-export { props }
+	const poll = do(resolve)
+		if condition! then resolve!
+		else setTimeout(&, 100) do poll(resolve)
+	
+	new Promise(poll)
+
+export {
+	props
+	Props
+	waitForProps
+}
