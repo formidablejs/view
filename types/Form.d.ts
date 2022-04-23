@@ -2,18 +2,18 @@ export class Form {
     /**
          * Instantiate form.
          *
-         * @param {Object} form
+         * @param {Object|null} form
          * @param {object|null} config
          */
     /**
     *
          * Instantiate form.
          *
-         * @param {Object} form
+         * @param {Object|null} form
          * @param {object|null} config
          
     */
-    constructor(form?: any, config?: object | null);
+    constructor(form?: any | null, config?: object | null);
     form: any;
     config: any;
     processing: boolean;
