@@ -13,7 +13,7 @@ export class Form {
          * @param {object|null} config
          
     */
-    constructor(form: any, config?: object | null);
+    constructor(form?: any, config?: object | null);
     form: any;
     config: any;
     processing: boolean;
