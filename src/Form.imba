@@ -19,9 +19,9 @@ export class Form
      * @param {Object} form
      * @param {object|null} config
      */
-	def constructor form, config = {}
-		self.form = form
-		self.config = config
+	def constructor form = {}, config = {}
+		self.form = form || {}
+		self.config = config || {}
 		self.processing = false
 		self.errors = {}
 		self.formWasFilled = false
