@@ -1,3 +1,4 @@
+import { trim } from './trim'
 import { csrf } from './csrf'
 
 export class Form
@@ -106,9 +107,10 @@ export class Form
      * @returns {void}
      */
 	def fill
-		Object.keys(self.form).forEach do(key)
-			if !self.formWasFilled
-				self[key] = (self.form[key] === true || self.form[key] === false) ? self.form[key] : self.form[key]?.trim!
+		const form = trim(self.form)
+
+		Object.keys(form).forEach do(key)
+			self[key] = form[key] if !self.formWasFilled
 
 			self.errors[key] = ''
 
