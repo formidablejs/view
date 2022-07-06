@@ -199,6 +199,7 @@ export class Form
 		self.isProcessing(true).fill!
 
 		await csrf!
+		await csrf!
 
 		const args = [ path ]
 
