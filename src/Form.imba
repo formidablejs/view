@@ -21,7 +21,7 @@ export class Form
      * @param {object|null} config
      */
 	def constructor form = {}, config = {}
-		self.form = form || {}
+		self.form = trim(form || {})
 		self.config = config || {}
 		self.processing = false
 		self.errors = {}
@@ -45,7 +45,7 @@ export class Form
      *
 	get hasErrors
 		Object.keys(self.errors).length > 0
-	
+
 	/**
 	 * Check if form was fatal.
 	 *
@@ -107,9 +107,7 @@ export class Form
      * @returns {void}
      */
 	def fill
-		const form = trim(self.form)
-
-		Object.keys(form).forEach do(key)
+		Object.keys(self.form).forEach do(key)
 			self[key] = form[key] if !self.formWasFilled
 
 			self.errors[key] = ''
@@ -135,7 +133,7 @@ export class Form
      */
 	def get path\String
 		self.sendRequest('get', path)
-	
+
 	/**
      * Send head request.
      *
@@ -153,7 +151,7 @@ export class Form
      */
 	def post path\String
 		self.sendRequest('post', path)
-	
+
 	/**
      * Send put request.
      *
@@ -162,7 +160,7 @@ export class Form
      */
 	def put path\String
 		self.sendRequest('put', path)
-	
+
 	/**
      * Send delete request.
      *
@@ -171,7 +169,7 @@ export class Form
      */
 	def delete path\String
 		self.sendRequest('delete', path)
-	
+
 	/**
      * Send options request.
      *
@@ -180,7 +178,7 @@ export class Form
      */
 	def options path\String
 		self.sendRequest('options', path)
-	
+
 	/**
      * Send delete request.
      *
@@ -211,7 +209,7 @@ export class Form
 
 			for own key, value of self.body!
 				params += "&{key}={value}"
-			
+
 			if params !== ''
 				args[0] = path + (path.indexOf('&') !== -1 ? params : "?{params.substring(1)}")
 

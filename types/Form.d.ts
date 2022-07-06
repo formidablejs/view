@@ -40,7 +40,7 @@ export class Form {
          *
         get hasErrors
             Object.keys(self.errors).length > 0
-        
+    
         \/\**
          * Check if form was fatal.
          *
@@ -54,7 +54,7 @@ export class Form {
          *
         get hasErrors
             Object.keys(self.errors).length > 0
-        
+    
         /**
          * Check if form was fatal.
          *
@@ -300,11 +300,13 @@ export class Form {
          
     */
     body(): any;
-    [$3]($$?: any): void;
-    [$1]: any;
-    [$2]: any;
+    [$__patch__$]($$?: {}): void;
+    [$__init__$]($$?: any, deep?: boolean): void;
+    [$fatal$]: any;
+    [$success$]: any;
 }
-declare const $3: unique symbol;
-declare const $1: unique symbol;
-declare const $2: unique symbol;
+declare const $__patch__$: unique symbol;
+declare const $__init__$: unique symbol;
+declare const $fatal$: unique symbol;
+declare const $success$: unique symbol;
 export {};
