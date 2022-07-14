@@ -236,7 +236,7 @@ export class Form
 			headers: self.headers
 		}
 
-		const response = window.axios[method.toLowerCase!](...args)
+		window.axios[method.toLowerCase!](...args)
 			.then(do(response)
 				self.#success = true
 				self.recentlySuccessful = true
@@ -259,14 +259,15 @@ export class Form
 			.catch(do(error)
 				self.#success = false
 
-				if error.response.status === 422 then self.errors = error.response.data.errors
+				if error.response
+					if error.response.status === 422 then self.errors = error.response.data.errors
 
-				/** set fatal error. */
-				if error.response.status !== 422 && typeof error.response.status === 'number'
-					self.#fatal = {
-						error: error.response.status
-						response: error.response.data
-					}
+					/** set fatal error. */
+					if error.response.status !== 422 && typeof error.response.status === 'number'
+						self.#fatal = {
+							error: error.response.status
+							response: error.response.data
+						}
 
 				Promise.reject(error)
 
@@ -284,11 +285,6 @@ export class Form
 				if config && config.onComplete
 					config.onComplete!
 			)
-
-		if config && (config.onSuccess || config.onError || config.onComplete)
-			return
-
-		response
 
 	/**
      * Get request body object.
