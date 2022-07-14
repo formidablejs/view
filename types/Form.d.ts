@@ -3,23 +3,25 @@ export class Form {
          * Instantiate form.
          *
          * @param {Object|null} form
-         * @param {object|null} config
+         * @param {FormConfig|null} config
          */
     /**
     *
          * Instantiate form.
          *
          * @param {Object|null} form
-         * @param {object|null} config
-         
+         * @param {FormConfig|null} config
+
+    @param {FormConfig} config
     */
-    constructor(form?: any | null, config?: object | null);
+    constructor(form?: any | null, config?: FormConfig | null);
     form: any;
     config: any;
     processing: boolean;
     errors: {};
     formWasFilled: boolean;
     recentlySuccessful: boolean;
+    headers: any;
     /**
          * Check if the form is processing.
          *
@@ -30,7 +32,7 @@ export class Form {
          * Check if the form is processing.
          *
          * @returns {Boolean}
-         
+
     */
     get processingΦ(): boolean;
     /**
@@ -40,7 +42,7 @@ export class Form {
          *
         get hasErrors
             Object.keys(self.errors).length > 0
-    
+
         \/\**
          * Check if form was fatal.
          *
@@ -54,12 +56,12 @@ export class Form {
          *
         get hasErrors
             Object.keys(self.errors).length > 0
-    
+
         /**
          * Check if form was fatal.
          *
          * @var {Boolean}
-         
+
     */
     get isFatalΦ(): boolean;
     /**
@@ -72,7 +74,7 @@ export class Form {
          * Get fatal error.
          *
          * @var {Object|String}
-         
+
     */
     get fatalError(): any;
     /**
@@ -85,7 +87,7 @@ export class Form {
          * Check if request was successful.
          *
          * @var {Boolean}
-         
+
     */
     get isSuccessfulΦ(): any;
     /**
@@ -98,7 +100,7 @@ export class Form {
          * Check if form has been modified.
          *
          * @var {Boolean} dirty
-         
+
     */
     get isDirty(): boolean;
     /**
@@ -111,7 +113,7 @@ export class Form {
          * Check if form has not been modified.
          *
          * @var {Boolean}
-         
+
     */
     get isNotDirty(): boolean;
     /**
@@ -124,7 +126,7 @@ export class Form {
          * Clear all errors.
          *
          * @returns {Form}
-         
+
     */
     clearErrors(): Form;
     /**
@@ -137,7 +139,7 @@ export class Form {
          * Fill Form body.
          *
          * @returns {void}
-         
+
     */
     fill(): void;
     /**
@@ -152,7 +154,7 @@ export class Form {
          *
          * @param {Boolean} processing
          * @returns {Form}
-         
+
     @param {Boolean} processing
     */
     isProcessing(processing?: boolean): Form;
@@ -160,120 +162,142 @@ export class Form {
          * Send get request.
          *
          * @param {String} path route path.
-         * @returns {Promise}
+         * @param {RequestConfig|null} config
+         * @returns {Promise|null}
          */
     /**
     *
          * Send get request.
          *
          * @param {String} path route path.
-         * @returns {Promise}
-         
+         * @param {RequestConfig|null} config
+         * @returns {Promise|null}
+
     @param {String} path
+    @param {RequestConfig} config
     */
-    get(path: string): Promise<any>;
+    get(path: string, config?: RequestConfig | null): Promise<any> | null;
     /**
          * Send head request.
          *
          * @param {String} path route path.
-         * @returns {Promise}
+         * @param {RequestConfig|null} config
+         * @returns {Promise|null}
          */
     /**
     *
          * Send head request.
          *
          * @param {String} path route path.
-         * @returns {Promise}
-         
+         * @param {RequestConfig|null} config
+         * @returns {Promise|null}
+
     @param {String} path
+    @param {RequestConfig} config
     */
-    head(path: string): Promise<any>;
+    head(path: string, config?: RequestConfig | null): Promise<any> | null;
     /**
          * Send post request.
          *
          * @param {String} path route path.
-         * @returns {Promise}
+         * @param {RequestConfig|null} config
+         * @returns {Promise|null}
          */
     /**
     *
          * Send post request.
          *
          * @param {String} path route path.
-         * @returns {Promise}
-         
+         * @param {RequestConfig|null} config
+         * @returns {Promise|null}
+
     @param {String} path
+    @param {RequestConfig} config
     */
-    post(path: string): Promise<any>;
+    post(path: string, config?: RequestConfig | null): Promise<any> | null;
     /**
          * Send put request.
          *
          * @param {String} path route path.
-         * @returns {Promise}
+         * @param {RequestConfig|null} config
+         * @returns {Promise|null}
          */
     /**
     *
          * Send put request.
          *
          * @param {String} path route path.
-         * @returns {Promise}
-         
+         * @param {RequestConfig|null} config
+         * @returns {Promise|null}
+
     @param {String} path
+    @param {RequestConfig} config
     */
-    put(path: string): Promise<any>;
+    put(path: string, config?: RequestConfig | null): Promise<any> | null;
     /**
          * Send delete request.
          *
          * @param {String} path route path.
-         * @returns {Promise}
+         * @param {RequestConfig|null} config
+         * @returns {Promise|null}
          */
     /**
     *
          * Send delete request.
          *
          * @param {String} path route path.
-         * @returns {Promise}
-         
+         * @param {RequestConfig|null} config
+         * @returns {Promise|null}
+
     @param {String} path
+    @param {RequestConfig} config
     */
-    delete(path: string): Promise<any>;
+    delete(path: string, config?: RequestConfig | null): Promise<any> | null;
     /**
          * Send options request.
          *
          * @param {String} path route path.
-         * @returns {Promise}
+         * @param {RequestConfig|null} config
+         * @returns {Promise|null}
          */
     /**
     *
          * Send options request.
          *
          * @param {String} path route path.
-         * @returns {Promise}
-         
+         * @param {RequestConfig|null} config
+         * @returns {Promise|null}
+
     @param {String} path
+    @param {RequestConfig} config
     */
-    options(path: string): Promise<any>;
+    options(path: string, config?: RequestConfig | null): Promise<any> | null;
     /**
          * Send delete request.
          *
          * @param {String} path route path.
-         * @returns {Promise}
+         * @param {RequestConfig|null} config
+         * @returns {Promise|null}
          */
     /**
     *
          * Send delete request.
          *
          * @param {String} path route path.
-         * @returns {Promise}
-         
+         * @param {RequestConfig|null} config
+         * @returns {Promise|null}
+
     @param {String} path
+    @param {RequestConfig} config
     */
-    patch(path: string): Promise<any>;
+    patch(path: string, config?: RequestConfig | null): Promise<any> | null;
     /**
          * Send request.
          *
          * @param {String} method request method.
          * @param {String} path route path.
-         * @returns {Promise}
+         * @param {RequestConfig|null} config
+         * @returns {Promise|null}
          */
     /**
     *
@@ -281,12 +305,14 @@ export class Form {
          *
          * @param {String} method request method.
          * @param {String} path route path.
-         * @returns {Promise}
-         
+         * @param {RequestConfig|null} config
+         * @returns {Promise|null}
+
     @param {String} method
     @param {String} path
+    @param {RequestConfig} config
     */
-    sendRequest(method: string, path: string): Promise<any>;
+    sendRequest(method: string, path: string, config?: RequestConfig | null): Promise<any> | null;
     /**
          * Get request body object.
          *
@@ -297,9 +323,10 @@ export class Form {
          * Get request body object.
          *
          * @returns {Object} body
-         
+
     */
     body(): any;
+    renderError(error: any): HTMLDivElement;
     [$__patch__$]($$?: {}): void;
     [$__init__$]($$?: any, deep?: boolean): void;
     [$fatal$]: any;
@@ -309,4 +336,6 @@ declare const $__patch__$: unique symbol;
 declare const $__init__$: unique symbol;
 declare const $fatal$: unique symbol;
 declare const $success$: unique symbol;
+import type { FormConfig } from "../ts";
+import type { RequestConfig } from "../ts";
 export {};
