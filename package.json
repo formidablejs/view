@@ -1,6 +1,6 @@
 {
   "name": "@formidablejs/view",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Building blocks for Formidable SPA's",
   "author": "Donald Pakkies",
   "license": "MIT",
@@ -22,7 +22,7 @@
     "@formidablejs/framework": ">=0.10.0"
   },
   "devDependencies": {
-    "@types/node": "^18.0.1",
+    "@types/node": "^18.0.4",
     "imba": "^2.0.0-alpha.209",
     "typescript": "^4.7.4"
   }

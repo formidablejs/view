@@ -1,5 +1,7 @@
 import { trim } from './trim'
 import { csrf } from './csrf'
+import type { FormConfig } from '../ts'
+import type { RequestConfig } from '../ts'
 
 export class Form
 	prop form
@@ -8,6 +10,11 @@ export class Form
 	prop errors
 	prop formWasFilled
 	prop recentlySuccessful
+
+	prop headers = {
+		'X-FORMIDABLE-REQUEST': true
+	}
+
 	prop #fatal\{error: number; response: object} = {
 		error: null
 		response: null
@@ -18,15 +25,18 @@ export class Form
      * Instantiate form.
      *
      * @param {Object|null} form
-     * @param {object|null} config
+     * @param {FormConfig|null} config
      */
-	def constructor form = {}, config = {}
+	def constructor form = {}, config\FormConfig = {}
 		self.form = trim(form || {})
 		self.config = config || {}
 		self.processing = false
 		self.errors = {}
 		self.formWasFilled = false
 		self.recentlySuccessful = false
+
+		if self.config.headers
+			self.headers = Object.assign(self.config.headers, self.headers)
 
 		self.fill!
 
@@ -129,79 +139,87 @@ export class Form
      * Send get request.
      *
      * @param {String} path route path.
-     * @returns {Promise}
+     * @param {RequestConfig|null} config
+     * @returns {Promise|null}
      */
-	def get path\String
-		self.sendRequest('get', path)
+	def get path\String, config\RequestConfig = null
+		self.sendRequest('get', path, config)
 
 	/**
      * Send head request.
      *
      * @param {String} path route path.
-     * @returns {Promise}
+	 * @param {RequestConfig|null} config
+     * @returns {Promise|null}
      */
-	def head path\String
-		self.sendRequest('head', path)
+	def head path\String, config\RequestConfig = null
+		self.sendRequest('head', path, config)
 
 	/**
      * Send post request.
      *
      * @param {String} path route path.
-     * @returns {Promise}
+	 * @param {RequestConfig|null} config
+     * @returns {Promise|null}
      */
-	def post path\String
-		self.sendRequest('post', path)
+	def post path\String, config\RequestConfig = null
+		self.sendRequest('post', path, config)
 
 	/**
      * Send put request.
      *
      * @param {String} path route path.
-     * @returns {Promise}
+	 * @param {RequestConfig|null} config
+     * @returns {Promise|null}
      */
-	def put path\String
-		self.sendRequest('put', path)
+	def put path\String, config\RequestConfig = null
+		self.sendRequest('put', path, config)
 
 	/**
      * Send delete request.
      *
      * @param {String} path route path.
-     * @returns {Promise}
+	 * @param {RequestConfig|null} config
+     * @returns {Promise|null}
      */
-	def delete path\String
-		self.sendRequest('delete', path)
+	def delete path\String, config\RequestConfig = null
+		self.sendRequest('delete', path, config)
 
 	/**
      * Send options request.
      *
      * @param {String} path route path.
-     * @returns {Promise}
+	 * @param {RequestConfig|null} config
+     * @returns {Promise|null}
      */
-	def options path\String
-		self.sendRequest('options', path)
+	def options path\String, config\RequestConfig = null
+		self.sendRequest('options', path, config)
 
 	/**
      * Send delete request.
      *
      * @param {String} path route path.
-     * @returns {Promise}
+	 * @param {RequestConfig|null} config
+     * @returns {Promise|null}
      */
-	def patch path\String
-		self.sendRequest('patch', path)
+	def patch path\String, config\RequestConfig = null
+		self.sendRequest('patch', path, config)
 
 	/**
      * Send request.
      *
      * @param {String} method request method.
      * @param {String} path route path.
-     * @returns {Promise}
+	 * @param {RequestConfig|null} config
+     * @returns {Promise|null}
      */
-	def sendRequest method\String, path\String
+	def sendRequest method\String, path\String, config\RequestConfig = null
 		self.isProcessing(true).fill!
 
 		await csrf!
 		await csrf!
 
-		const args = [ path ]
+		const args\any[] = [ path ]
 
 		if !['get', 'head', 'options'].includes(method.toLowerCase!)
 			args.push this.body!
@@ -214,7 +232,11 @@ export class Form
 			if params !== ''
 				args[0] = path + (path.indexOf('&') !== -1 ? params : "?{params.substring(1)}")
 
-		window.axios[method.toLowerCase!](...args)
+		args.push {
+			headers: self.headers
+		}
+
+		const response = window.axios[method.toLowerCase!](...args)
 			.then(do(response)
 				self.#success = true
 				self.recentlySuccessful = true
@@ -230,6 +252,9 @@ export class Form
 					self.recentlySuccessful = false
 
 				Promise.resolve(response)
+
+				if config && config.onSuccess
+					config.onSuccess(response)
 			)
 			.catch(do(error)
 				self.#success = false
@@ -244,8 +269,26 @@ export class Form
 					}
 
 				Promise.reject(error)
+
+				if config && config.onError
+					config.onError(error)
+
+				const shouldRenderServerError? = self.config.renderServerError ?? true
+
+				if shouldRenderServerError? == true && (error.response.headers && error.response.headers.accept === 'text/html')
+					self.renderError error
 			)
-			.finally(do self.isProcessing(false))
+			.finally(do
+				self.isProcessing(false)
+
+				if config && config.onComplete
+					config.onComplete!
+			)
+
+		if config && (config.onSuccess || config.onError || config.onComplete)
+			return
+
+		response
 
 	/**
      * Get request body object.
@@ -259,3 +302,43 @@ export class Form
 			Object.assign(body, { [key]: self[key] })
 
 		body
+
+	def renderError error
+		const errorElement = document.createElement('iframe')
+		const container    = document.createElement('div')
+		const backdrop     = document.createElement('div')
+
+		errorElement.srcdoc = error.response.data
+
+		errorElement.style = `
+			width: 90%;
+			height: 90%;
+			border: none;
+			position: absolute;
+			transform: translate(5.5%, 5%);
+			border-radius: 10px;`
+
+		container.style = `
+			width: 90%;
+			height: 90%;
+			border: none;
+			position: absolute;
+			transform: translate(5.5%, 5%);
+			border-radius: 10px;
+			background: #fff;`
+
+		backdrop.style = 'transition: all .3s ease; opacity: 0; background: rgb(16 16 16 / 68%);position: absolute; left:0; top: 0; width: 100%; height: 100%; z-index: 9999'
+
+		backdrop.appendChild(container)
+		backdrop.appendChild(errorElement)
+
+		setTimeout(&, 1) do
+			backdrop.style.opacity = 1
+
+		backdrop.addEventListener 'click', do
+			backdrop.style.opacity = 0
+
+			setTimeout(&, 300) do
+				backdrop.remove!
+
+		document.body.appendChild(backdrop)
