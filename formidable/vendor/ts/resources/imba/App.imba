@@ -8,9 +8,9 @@ export tag App
 	def render
 		<self[ff:Nunito ta:center] ease>
 			<nav[p:7 fs:large]>
-				<a[fw:bold] route-to="/$"> "Home"
+				<a[fw:bold] route-to="/"> "Home"
 				" | "
 				<a[fw:bold] route-to="/about"> "About"
-	
-			<Home route="/$">
+
+			<Home route="/">
 			<About route="/about">

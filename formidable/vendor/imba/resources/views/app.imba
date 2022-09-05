@@ -14,7 +14,7 @@ export class App < View
 				<title> config('app.name', 'Formidable')
 
 				<link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap'>
-				<style src="../imba/main.imba">
+				<style src="*">
 
 			<body>
 				<script type="module" src="../imba/main.imba">
