@@ -1,5 +1,5 @@
-import { Request } from '@formidablejs/framework';
-import { Route } from '@formidablejs/framework';
+import { Request } from '@formidablejs/framework'
+import { Route } from '@formidablejs/framework'
 
 /**
  * --------------------------------------------------------------------------
@@ -12,5 +12,5 @@ import { Route } from '@formidablejs/framework';
  */
 
 Route.get('/user', (request: Request) => {
-	return request.auth().user();
-}).middleware(['auth']);
+	return request.auth().user()
+}).middleware(['auth'])

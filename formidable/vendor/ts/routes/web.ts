@@ -1,7 +1,7 @@
-import { App } from '../resources/views/app';
-import { Request } from '@formidablejs/framework';
-import { Route } from '@formidablejs/framework';
-import { view } from '@formidablejs/framework';
+import { App } from '../resources/views/app'
+import { Request } from '@formidablejs/framework'
+import { Route } from '@formidablejs/framework'
+import { view } from '@formidablejs/framework'
 
 /**
  * --------------------------------------------------------------------------
@@ -13,4 +13,4 @@ import { view } from '@formidablejs/framework';
  * is assigned the "session" middleware group.
  */
 
-Route.get('/*', () => view(App));
+Route.get('/*', () => view(App))
