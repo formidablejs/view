@@ -11,11 +11,12 @@ export class Form {
          *
          * @param {Object|null} form
          * @param {FormConfig|null} config
-
+         
     @param {FormConfig} config
     */
     constructor(form?: any | null, config?: FormConfig | null);
     form: any;
+    initialForm: any;
     config: any;
     processing: boolean;
     errors: {};
@@ -23,6 +24,19 @@ export class Form {
     recentlySuccessful: boolean;
     headers: any;
     /**
+         * Reset form.
+         *
+         * @returns {void}
+         */
+    /**
+    *
+         * Reset form.
+         *
+         * @returns {void}
+         
+    */
+    reset(): void;
+    /**
          * Check if the form is processing.
          *
          * @returns {Boolean}
@@ -32,36 +46,33 @@ export class Form {
          * Check if the form is processing.
          *
          * @returns {Boolean}
-
+         
     */
     get processingΦ(): boolean;
     /**
          * Check if form has errors.
          *
          * @var {Boolean}
-         *
-        get hasErrors
-            Object.keys(self.errors).length > 0
-
-        \/\**
-         * Check if form was fatal.
-         *
-         * @var {Boolean}
          */
     /**
     *
          * Check if form has errors.
          *
          * @var {Boolean}
-         *
-        get hasErrors
-            Object.keys(self.errors).length > 0
-
-        /**
+         
+    */
+    get hasErrors(): boolean;
+    /**
          * Check if form was fatal.
          *
          * @var {Boolean}
-
+         */
+    /**
+    *
+         * Check if form was fatal.
+         *
+         * @var {Boolean}
+         
     */
     get isFatalΦ(): boolean;
     /**
@@ -74,7 +85,7 @@ export class Form {
          * Get fatal error.
          *
          * @var {Object|String}
-
+         
     */
     get fatalError(): any;
     /**
@@ -87,7 +98,7 @@ export class Form {
          * Check if request was successful.
          *
          * @var {Boolean}
-
+         
     */
     get isSuccessfulΦ(): any;
     /**
@@ -100,7 +111,7 @@ export class Form {
          * Check if form has been modified.
          *
          * @var {Boolean} dirty
-
+         
     */
     get isDirty(): boolean;
     /**
@@ -113,7 +124,7 @@ export class Form {
          * Check if form has not been modified.
          *
          * @var {Boolean}
-
+         
     */
     get isNotDirty(): boolean;
     /**
@@ -126,7 +137,7 @@ export class Form {
          * Clear all errors.
          *
          * @returns {Form}
-
+         
     */
     clearErrors(): Form;
     /**
@@ -139,7 +150,7 @@ export class Form {
          * Fill Form body.
          *
          * @returns {void}
-
+         
     */
     fill(): void;
     /**
@@ -154,7 +165,7 @@ export class Form {
          *
          * @param {Boolean} processing
          * @returns {Form}
-
+         
     @param {Boolean} processing
     */
     isProcessing(processing?: boolean): Form;
@@ -172,7 +183,7 @@ export class Form {
          * @param {String} path route path.
          * @param {RequestConfig|null} config
          * @returns {Promise|null}
-
+         
     @param {String} path
     @param {RequestConfig} config
     */
@@ -191,7 +202,7 @@ export class Form {
          * @param {String} path route path.
          * @param {RequestConfig|null} config
          * @returns {Promise|null}
-
+         
     @param {String} path
     @param {RequestConfig} config
     */
@@ -210,7 +221,7 @@ export class Form {
          * @param {String} path route path.
          * @param {RequestConfig|null} config
          * @returns {Promise|null}
-
+         
     @param {String} path
     @param {RequestConfig} config
     */
@@ -229,7 +240,7 @@ export class Form {
          * @param {String} path route path.
          * @param {RequestConfig|null} config
          * @returns {Promise|null}
-
+         
     @param {String} path
     @param {RequestConfig} config
     */
@@ -248,7 +259,7 @@ export class Form {
          * @param {String} path route path.
          * @param {RequestConfig|null} config
          * @returns {Promise|null}
-
+         
     @param {String} path
     @param {RequestConfig} config
     */
@@ -267,7 +278,7 @@ export class Form {
          * @param {String} path route path.
          * @param {RequestConfig|null} config
          * @returns {Promise|null}
-
+         
     @param {String} path
     @param {RequestConfig} config
     */
@@ -286,7 +297,7 @@ export class Form {
          * @param {String} path route path.
          * @param {RequestConfig|null} config
          * @returns {Promise|null}
-
+         
     @param {String} path
     @param {RequestConfig} config
     */
@@ -307,7 +318,7 @@ export class Form {
          * @param {String} path route path.
          * @param {RequestConfig|null} config
          * @returns {Promise|null}
-
+         
     @param {String} method
     @param {String} path
     @param {RequestConfig} config
@@ -323,7 +334,7 @@ export class Form {
          * Get request body object.
          *
          * @returns {Object} body
-
+         
     */
     body(): any;
     renderError(error: any): HTMLDivElement;
@@ -336,6 +347,4 @@ declare const $__patch__$: unique symbol;
 declare const $__init__$: unique symbol;
 declare const $fatal$: unique symbol;
 declare const $success$: unique symbol;
-import type { FormConfig } from "../ts";
-import type { RequestConfig } from "../ts";
 export {};

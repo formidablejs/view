@@ -5,6 +5,7 @@ import type { RequestConfig } from '../ts'
 
 export class Form
 	prop form
+	prop initialForm
 	prop config
 	prop processing
 	prop errors
@@ -29,6 +30,7 @@ export class Form
      */
 	def constructor form = {}, config\FormConfig = {}
 		self.form = trim(form || {})
+		self.initialForm = trim(form || {})
 		self.config = config || {}
 		self.processing = false
 		self.errors = {}
@@ -37,6 +39,21 @@ export class Form
 
 		if self.config.headers
 			self.headers = Object.assign(self.config.headers, self.headers)
+
+		self.fill!
+
+	/**
+	 * Reset form.
+	 *
+	 * @returns {void}
+	 */
+	def reset
+		self.form = trim(self.initialForm || {})
+
+		self.processing = false
+		self.errors = {}
+		self.formWasFilled = false
+		self.recentlySuccessful = false
 
 		self.fill!
 
@@ -52,7 +69,7 @@ export class Form
      * Check if form has errors.
      *
      * @var {Boolean}
-     *
+     */
 	get hasErrors
 		Object.keys(self.errors).length > 0
 
