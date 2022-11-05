@@ -52,7 +52,7 @@ export class Form
      * Check if form has errors.
      *
      * @var {Boolean}
-     *
+     */
 	get hasErrors
 		Object.keys(self.errors).length > 0
 
