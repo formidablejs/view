@@ -16,12 +16,26 @@ export class Form {
     */
     constructor(form?: any | null, config?: FormConfig | null);
     form: any;
+    initialForm: any;
     config: any;
     processing: boolean;
     errors: {};
     formWasFilled: boolean;
     recentlySuccessful: boolean;
     headers: any;
+    /**
+         * Reset form.
+         *
+         * @returns {void}
+         */
+    /**
+    *
+         * Reset form.
+         *
+         * @returns {void}
+         
+    */
+    reset(): void;
     /**
          * Check if the form is processing.
          *
