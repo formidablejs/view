@@ -25,7 +25,7 @@ export class Form
 	/**
      * Instantiate form.
      *
-     * @param {Object|null} form
+     * @param {object|null} form
      * @param {FormConfig|null} config
      */
 	def constructor form = {}, config\FormConfig = {}
@@ -60,7 +60,7 @@ export class Form
 	/**
      * Check if the form is processing.
      *
-     * @returns {Boolean}
+     * @returns {boolean}
      */
 	get processing?
 		self.processing
@@ -68,7 +68,7 @@ export class Form
 	/**
      * Check if form has errors.
      *
-     * @var {Boolean}
+     * @var {boolean}
      */
 	get hasErrors
 		Object.keys(self.errors).length > 0
@@ -76,7 +76,7 @@ export class Form
 	/**
 	 * Check if form was fatal.
 	 *
-	 * @var {Boolean}
+	 * @var {boolean}
 	 */
 	get isFatal?
 		self.#fatal.error !== null && self.#fatal.error !== undefined
@@ -84,7 +84,7 @@ export class Form
 	/**
 	 * Get fatal error.
 	 *
-	 * @var {Object|String}
+	 * @var {object|string}
 	 */
 	get fatalError
 		self.#fatal.response
@@ -92,7 +92,7 @@ export class Form
 	/**
 	 * Check if request was successful.
 	 *
-	 * @var {Boolean}
+	 * @var {boolean}
 	 */
 	get isSuccessful?
 		self.#success
@@ -100,7 +100,7 @@ export class Form
 	/**
      * Check if form has been modified.
      *
-     * @var {Boolean} dirty
+     * @var {boolean} dirty
      */
 	get isDirty
 		let dirty = false
@@ -113,7 +113,7 @@ export class Form
 	/**
      * Check if form has not been modified.
      *
-     * @var {Boolean}
+     * @var {boolean}
      */
 	get isNotDirty
 		self.isDirty === false
@@ -144,10 +144,10 @@ export class Form
 	/**
      * Change processing status.
      *
-     * @param {Boolean} processing
+     * @param {boolean} processing
      * @returns {Form}
      */
-	def isProcessing processing\Boolean = true
+	def isProcessing processing\boolean = true
 		self.processing = processing
 
 		self
@@ -155,82 +155,82 @@ export class Form
 	/**
      * Send get request.
      *
-     * @param {String} path route path.
+     * @param {string} path route path.
      * @param {RequestConfig|null} config
      * @returns {Promise|null}
      */
-	def get path\String, config\RequestConfig = null
+	def get path\string, config\RequestConfig = null
 		self.sendRequest('get', path, config)
 
 	/**
      * Send head request.
      *
-     * @param {String} path route path.
+     * @param {string} path route path.
 	 * @param {RequestConfig|null} config
      * @returns {Promise|null}
      */
-	def head path\String, config\RequestConfig = null
+	def head path\string, config\RequestConfig = null
 		self.sendRequest('head', path, config)
 
 	/**
      * Send post request.
      *
-     * @param {String} path route path.
+     * @param {string} path route path.
 	 * @param {RequestConfig|null} config
      * @returns {Promise|null}
      */
-	def post path\String, config\RequestConfig = null
+	def post path\string, config\RequestConfig = null
 		self.sendRequest('post', path, config)
 
 	/**
      * Send put request.
      *
-     * @param {String} path route path.
+     * @param {string} path route path.
 	 * @param {RequestConfig|null} config
      * @returns {Promise|null}
      */
-	def put path\String, config\RequestConfig = null
+	def put path\string, config\RequestConfig = null
 		self.sendRequest('put', path, config)
 
 	/**
      * Send delete request.
      *
-     * @param {String} path route path.
+     * @param {string} path route path.
 	 * @param {RequestConfig|null} config
      * @returns {Promise|null}
      */
-	def delete path\String, config\RequestConfig = null
+	def delete path\string, config\RequestConfig = null
 		self.sendRequest('delete', path, config)
 
 	/**
      * Send options request.
      *
-     * @param {String} path route path.
+     * @param {string} path route path.
 	 * @param {RequestConfig|null} config
      * @returns {Promise|null}
      */
-	def options path\String, config\RequestConfig = null
+	def options path\string, config\RequestConfig = null
 		self.sendRequest('options', path, config)
 
 	/**
      * Send delete request.
      *
-     * @param {String} path route path.
+     * @param {string} path route path.
 	 * @param {RequestConfig|null} config
      * @returns {Promise|null}
      */
-	def patch path\String, config\RequestConfig = null
+	def patch path\string, config\RequestConfig = null
 		self.sendRequest('patch', path, config)
 
 	/**
      * Send request.
      *
-     * @param {String} method request method.
-     * @param {String} path route path.
+     * @param {string} method request method.
+     * @param {string} path route path.
 	 * @param {RequestConfig|null} config
      * @returns {Promise|null}
      */
-	def sendRequest method\String, path\String, config\RequestConfig = null
+	def sendRequest method\string, path\string, config\RequestConfig = null
 		self.isProcessing(true).fill!
 
 		await csrf!
@@ -306,7 +306,7 @@ export class Form
 	/**
      * Get request body object.
      *
-     * @returns {Object} body
+     * @returns {object} body
      */
 	def body
 		const body = {}
