@@ -1,11 +1,13 @@
+import type { AxiosResponse } from "axios";
+
 export type FormConfig = {
-    headers?: Object;
-    recentlySuccessful?: Number;
-    renderServerError?: Boolean;
+    headers?: object;
+    recentlySuccessful?: number;
+    renderServerError?: boolean;
 }
 
 export type RequestConfig = {
-    onSuccess?: CallableFunction;
-    onError?: CallableFunction;
-    onComplete?: CallableFunction;
+    onSuccess?: (response: AxiosResponse) => void;
+    onError?: (response: AxiosResponse) => void;
+    onComplete?: () => void;
 }
