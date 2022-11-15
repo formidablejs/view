@@ -11,12 +11,10 @@
   "homepage": "https://formidablejs.org",
   "repository": "https://github.com/formidablejs/view",
   "scripts": {
-    "build": "npm run imba:build && npm run imba:build:temp && npm run ts:build",
+    "build": "npm run imba:build && npm run imba:build:temp",
     "imba:build": "imbac src --output=lib --platform=browser --format=cjs --clean",
     "imba:build:temp": "imbac src --output=.temp --platform=browser --clean",
-    "imba:watch": "imbac -w src --output=lib --platform=browser --clean",
-    "ts:build": "tsc",
-    "ts:watch": "tsc -w"
+    "imba:watch": "imbac -w src --output=lib --platform=browser --clean"
   },
   "peerDependencies": {
     "@formidablejs/framework": ">=0.10.0",
