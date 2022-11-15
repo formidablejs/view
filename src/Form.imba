@@ -137,8 +137,6 @@ export class Form
 		Object.keys(self.form).forEach do(key)
 			self[key] = form[key] if !self.formWasFilled
 
-			self.errors[key] = ''
-
 		self.formWasFilled = true
 
 	/**
