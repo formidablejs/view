@@ -1,6 +1,6 @@
-import { config } from '@formidablejs/framework/lib/Support/Helpers'
+import { config } from '@formidablejs/framework'
 import { View } from '@formidablejs/framework'
-import { Props } from '../imba/props'
+import { Props } from '@formidablejs/view'
 
 export class App < View
 
@@ -17,7 +17,7 @@ export class App < View
 				<style src="*">
 
 			<body>
-				<script type="module" src="../imba/main.imba">
+				<script type="module" src="../frontend/main.imba">
 
 				try
 					<Props html:locale=locale>

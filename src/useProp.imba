@@ -1,6 +1,6 @@
-import { hasAttr } from '@formidablejs/view'
-import { isWaiting } from '@formidablejs/view'
-import { readProps } from '@formidablejs/view'
+import { hasAttr } from './hasAttr'
+import { isWaiting } from './isWaiting'
+import { readProps } from './readProps'
 
 let props = { }
 let ready = false
@@ -20,11 +20,19 @@ def waitForProps
 	const poll = do(resolve)
 		if condition! then resolve!
 		else setTimeout(&, 100) do poll(resolve)
-	
+
 	new Promise(poll)
+
+# Get prop value.
+#
+# @param {string|null} prop
+# @returns {any}
+def useProp prop = null
+	prop ? props[prop] : props
 
 export {
 	props
 	Props
 	waitForProps
+	useProp
 }

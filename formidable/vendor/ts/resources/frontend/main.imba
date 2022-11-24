@@ -1,5 +1,5 @@
 import './bootstrap'
-import { waitForProps } from './props'
+import { waitForProps } from '@formidablejs/view'
 import { App } from './App'
 
 def main
