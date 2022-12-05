@@ -2,8 +2,7 @@ import { FormConfig } from "../ts";
 import { Form } from "./Form";
 
 /**
- * @param {object} body
+ * @param {T} body
  * @param {FormConfig} config
  */
-export function useForm(body?: {}, config?: FormConfig): Form;
-
+export function useForm<T>(body?: T, config?: FormConfig): T & Form<T>;
