@@ -1,6 +1,6 @@
-import { FormConfig, RequestConfig } from "../ts";
+import { FormConfig, RequestHandle } from "../ts";
 
-export class Form {
+export class Form<T> {
     /**
          * Instantiate form.
          *
@@ -16,15 +16,15 @@ export class Form {
 
     @param {FormConfig} config
     */
-    constructor(form?: object | null, config?: FormConfig | null);
-    form: any;
-    initialForm: any;
-    config: any;
+    constructor(form?: T, config?: FormConfig | null);
+    form: T;
+    initialForm: T;
+    config: FormConfig;
     processing: boolean;
     errors: {};
     formWasFilled: boolean;
     recentlySuccessful: boolean;
-    headers: any;
+    headers: {};
     /**
          * Reset form.
          *
@@ -141,7 +141,7 @@ export class Form {
          * @returns {Form}
 
     */
-    clearErrors(): Form;
+    clearErrors(): Form<T>;
     /**
          * Fill Form body.
          *
@@ -170,12 +170,12 @@ export class Form {
 
     @param {boolean} processing
     */
-    isProcessing(processing?: boolean): Form;
+    isProcessing(processing?: boolean): Form<T>;
     /**
          * Send get request.
          *
          * @param {string} path route path.
-         * @param {RequestConfig|null} config
+         * @param {RequestHandle|null} config
          * @returns {Promise|null}
          */
     /**
@@ -183,18 +183,18 @@ export class Form {
          * Send get request.
          *
          * @param {string} path route path.
-         * @param {RequestConfig|null} config
+         * @param {RequestHandle|null} config
          * @returns {Promise|null}
 
     @param {string} path
-    @param {RequestConfig} config
+    @param {RequestHandle} config
     */
-    get(path: string, config?: RequestConfig | null): Promise<any> | null;
+    get(path: string, config?: RequestHandle | null): Promise<any> | null;
     /**
          * Send head request.
          *
          * @param {string} path route path.
-         * @param {RequestConfig|null} config
+         * @param {RequestHandle|null} config
          * @returns {Promise|null}
          */
     /**
@@ -202,18 +202,18 @@ export class Form {
          * Send head request.
          *
          * @param {string} path route path.
-         * @param {RequestConfig|null} config
+         * @param {RequestHandle|null} config
          * @returns {Promise|null}
 
     @param {string} path
-    @param {RequestConfig} config
+    @param {RequestHandle} config
     */
-    head(path: string, config?: RequestConfig | null): Promise<any> | null;
+    head(path: string, config?: RequestHandle | null): Promise<any> | null;
     /**
          * Send post request.
          *
          * @param {string} path route path.
-         * @param {RequestConfig|null} config
+         * @param {RequestHandle|null} config
          * @returns {Promise|null}
          */
     /**
@@ -221,18 +221,18 @@ export class Form {
          * Send post request.
          *
          * @param {string} path route path.
-         * @param {RequestConfig|null} config
+         * @param {RequestHandle|null} config
          * @returns {Promise|null}
 
     @param {string} path
-    @param {RequestConfig} config
+    @param {RequestHandle} config
     */
-    post(path: string, config?: RequestConfig | null): Promise<any> | null;
+    post(path: string, config?: RequestHandle | null): Promise<any> | null;
     /**
          * Send put request.
          *
          * @param {string} path route path.
-         * @param {RequestConfig|null} config
+         * @param {RequestHandle|null} config
          * @returns {Promise|null}
          */
     /**
@@ -240,18 +240,18 @@ export class Form {
          * Send put request.
          *
          * @param {string} path route path.
-         * @param {RequestConfig|null} config
+         * @param {RequestHandle|null} config
          * @returns {Promise|null}
 
     @param {string} path
-    @param {RequestConfig} config
+    @param {RequestHandle} config
     */
-    put(path: string, config?: RequestConfig | null): Promise<any> | null;
+    put(path: string, config?: RequestHandle | null): Promise<any> | null;
     /**
          * Send delete request.
          *
          * @param {string} path route path.
-         * @param {RequestConfig|null} config
+         * @param {RequestHandle|null} config
          * @returns {Promise|null}
          */
     /**
@@ -259,18 +259,18 @@ export class Form {
          * Send delete request.
          *
          * @param {string} path route path.
-         * @param {RequestConfig|null} config
+         * @param {RequestHandle|null} config
          * @returns {Promise|null}
 
     @param {string} path
-    @param {RequestConfig} config
+    @param {RequestHandle} config
     */
-    delete(path: string, config?: RequestConfig | null): Promise<any> | null;
+    delete(path: string, config?: RequestHandle | null): Promise<any> | null;
     /**
          * Send options request.
          *
          * @param {string} path route path.
-         * @param {RequestConfig|null} config
+         * @param {RequestHandle|null} config
          * @returns {Promise|null}
          */
     /**
@@ -278,18 +278,18 @@ export class Form {
          * Send options request.
          *
          * @param {string} path route path.
-         * @param {RequestConfig|null} config
+         * @param {RequestHandle|null} config
          * @returns {Promise|null}
 
     @param {string} path
-    @param {RequestConfig} config
+    @param {RequestHandle} config
     */
-    options(path: string, config?: RequestConfig | null): Promise<any> | null;
+    options(path: string, config?: RequestHandle | null): Promise<any> | null;
     /**
          * Send delete request.
          *
          * @param {string} path route path.
-         * @param {RequestConfig|null} config
+         * @param {RequestHandle|null} config
          * @returns {Promise|null}
          */
     /**
@@ -297,19 +297,19 @@ export class Form {
          * Send delete request.
          *
          * @param {string} path route path.
-         * @param {RequestConfig|null} config
+         * @param {RequestHandle|null} config
          * @returns {Promise|null}
 
     @param {string} path
-    @param {RequestConfig} config
+    @param {RequestHandle} config
     */
-    patch(path: string, config?: RequestConfig | null): Promise<any> | null;
+    patch(path: string, config?: RequestHandle | null): Promise<any> | null;
     /**
          * Send request.
          *
          * @param {string} method request method.
          * @param {string} path route path.
-         * @param {RequestConfig|null} config
+         * @param {RequestHandle|null} config
          * @returns {Promise|null}
          */
     /**
@@ -318,14 +318,14 @@ export class Form {
          *
          * @param {string} method request method.
          * @param {string} path route path.
-         * @param {RequestConfig|null} config
+         * @param {RequestHandle|null} config
          * @returns {Promise|null}
 
     @param {string} method
     @param {string} path
-    @param {RequestConfig} config
+    @param {RequestHandle} config
     */
-    sendRequest(method: string, path: string, config?: RequestConfig | null): Promise<any> | null;
+    sendRequest(method: string, path: string, config?: RequestHandle | null): Promise<any> | null;
     /**
          * Get request body object.
          *
