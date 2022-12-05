@@ -338,7 +338,7 @@ export class Form
 			border-radius: 10px;
 			background: #fff;`
 
-		backdrop.style = 'transition: all .3s ease; opacity: 0; background: rgb(16 16 16 / 68%);position: absolute; left:0; top: 0; width: 100%; height: 100%; z-index: 9999'
+		backdrop.style = 'transition: all .3s ease; opacity: 0; background: rgb(16 16 16 / 68%);position: fixed; left:0; top: 0; width: 100%; height: 100%; z-index: 9999'
 
 		backdrop.appendChild(container)
 		backdrop.appendChild(errorElement)
