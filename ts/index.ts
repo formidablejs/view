@@ -1,4 +1,4 @@
-import type { AxiosResponse } from "axios";
+import type { AxiosError, AxiosResponse } from "axios";
 
 export type FormConfig = {
     headers?: object;
@@ -6,8 +6,8 @@ export type FormConfig = {
     renderServerError?: boolean;
 }
 
-export type RequestConfig = {
+export type RequestHandle = {
     onSuccess?: (response: AxiosResponse) => void;
-    onError?: (response: AxiosResponse) => void;
+    onError?: (error: AxiosError) => void;
     onComplete?: () => void;
 }

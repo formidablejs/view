@@ -1,7 +1,7 @@
 import { trim } from './trim'
 import { csrf } from './csrf'
 import type { FormConfig } from '../ts'
-import type { RequestConfig } from '../ts'
+import type { RequestHandle } from '../ts'
 
 export class Form
 	prop form
@@ -154,70 +154,70 @@ export class Form
      * Send get request.
      *
      * @param {string} path route path.
-     * @param {RequestConfig|null} config
+     * @param {RequestHandle|null} config
      * @returns {Promise|null}
      */
-	def get path\string, config\RequestConfig = null
+	def get path\string, config\RequestHandle = null
 		self.sendRequest('get', path, config)
 
 	/**
      * Send head request.
      *
      * @param {string} path route path.
-	 * @param {RequestConfig|null} config
+	 * @param {RequestHandle|null} config
      * @returns {Promise|null}
      */
-	def head path\string, config\RequestConfig = null
+	def head path\string, config\RequestHandle = null
 		self.sendRequest('head', path, config)
 
 	/**
      * Send post request.
      *
      * @param {string} path route path.
-	 * @param {RequestConfig|null} config
+	 * @param {RequestHandle|null} config
      * @returns {Promise|null}
      */
-	def post path\string, config\RequestConfig = null
+	def post path\string, config\RequestHandle = null
 		self.sendRequest('post', path, config)
 
 	/**
      * Send put request.
      *
      * @param {string} path route path.
-	 * @param {RequestConfig|null} config
+	 * @param {RequestHandle|null} config
      * @returns {Promise|null}
      */
-	def put path\string, config\RequestConfig = null
+	def put path\string, config\RequestHandle = null
 		self.sendRequest('put', path, config)
 
 	/**
      * Send delete request.
      *
      * @param {string} path route path.
-	 * @param {RequestConfig|null} config
+	 * @param {RequestHandle|null} config
      * @returns {Promise|null}
      */
-	def delete path\string, config\RequestConfig = null
+	def delete path\string, config\RequestHandle = null
 		self.sendRequest('delete', path, config)
 
 	/**
      * Send options request.
      *
      * @param {string} path route path.
-	 * @param {RequestConfig|null} config
+	 * @param {RequestHandle|null} config
      * @returns {Promise|null}
      */
-	def options path\string, config\RequestConfig = null
+	def options path\string, config\RequestHandle = null
 		self.sendRequest('options', path, config)
 
 	/**
      * Send delete request.
      *
      * @param {string} path route path.
-	 * @param {RequestConfig|null} config
+	 * @param {RequestHandle|null} config
      * @returns {Promise|null}
      */
-	def patch path\string, config\RequestConfig = null
+	def patch path\string, config\RequestHandle = null
 		self.sendRequest('patch', path, config)
 
 	/**
@@ -225,10 +225,10 @@ export class Form
      *
      * @param {string} method request method.
      * @param {string} path route path.
-	 * @param {RequestConfig|null} config
+	 * @param {RequestHandle|null} config
      * @returns {Promise|null}
      */
-	def sendRequest method\string, path\string, config\RequestConfig = null
+	def sendRequest method\string, path\string, config\RequestHandle = null
 		self.isProcessing(true).fill!
 
 		await csrf!
@@ -333,12 +333,12 @@ export class Form
 			width: 90%;
 			height: 90%;
 			border: none;
-			position: absolute;
+			position: fixed;
 			transform: translate(5.5%, 5%);
 			border-radius: 10px;
 			background: #fff;`
 
-		backdrop.style = 'transition: all .3s ease; opacity: 0; background: rgb(16 16 16 / 68%);position: absolute; left:0; top: 0; width: 100%; height: 100%; z-index: 9999'
+		backdrop.style = 'transition: all .3s ease; opacity: 0; background: rgb(16 16 16 / 68%);position: fixed; left:0; top: 0; width: 100%; height: 100%; z-index: 9999'
 
 		backdrop.appendChild(container)
 		backdrop.appendChild(errorElement)
