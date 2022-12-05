@@ -333,7 +333,7 @@ export class Form
 			width: 90%;
 			height: 90%;
 			border: none;
-			position: absolute;
+			position: fixed;
 			transform: translate(5.5%, 5%);
 			border-radius: 10px;
 			background: #fff;`
