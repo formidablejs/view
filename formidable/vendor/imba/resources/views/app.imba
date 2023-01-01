@@ -13,7 +13,7 @@ export class App < View
 				<meta name='viewport' content='width=device-width,initial-scale=1'>
 				<title> config('app.name', 'Formidable')
 
-				<link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap'>
+				<link rel='stylesheet' href='https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap'>
 				<style src="*">
 
 			<body>
