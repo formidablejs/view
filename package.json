@@ -21,6 +21,8 @@
     "axios": "*"
   },
   "devDependencies": {
+    "@formidablejs/framework": "^0.13.12",
+    "@formidablejs/stubs": "^0.4.0",
     "@types/node": "^18.0.6",
     "axios": "^1.1.3",
     "imba": "^2.0.0-alpha.212",
