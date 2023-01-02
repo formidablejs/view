@@ -21,7 +21,7 @@ export class Form<T> {
     initialForm: T;
     config: FormConfig;
     processing: boolean;
-    errors: {};
+    errors: Record<keyof T, string[]>;
     formWasFilled: boolean;
     recentlySuccessful: boolean;
     headers: {};
