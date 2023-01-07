@@ -17,3 +17,12 @@ declare global {
         FormConfig: FormConfig
     }
 }
+
+declare module '@formidablejs/framework' {
+    export class View {
+        /**
+         * Compiled routes.
+         */
+        routes(): string
+    }
+}
