@@ -10,7 +10,7 @@ class Route
 		const routes = useProp('routes')
 
 		if !routes
-			throw new Errpr "Route list is missing."
+			throw new Error "Route list is missing."
 
 		if !routes[name]
 			throw new Error "Route '{name}' is not in the route list."
