@@ -6,7 +6,7 @@ export class Props {
 /**
  * Wait for all props to be loaded.
  */
-export function waitForProps(): Promise<any>;
+export function waitForProps(interval?: number): Promise<any>;
 
 /**
  * Get specific prop or all props.
