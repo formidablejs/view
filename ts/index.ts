@@ -11,3 +11,18 @@ export type RequestHandle = {
     onError?: (error: AxiosError) => void;
     onComplete?: () => void;
 }
+
+declare global {
+    interface Window {
+        FormConfig: FormConfig
+    }
+}
+
+declare module '@formidablejs/framework' {
+    export class View {
+        /**
+         * Compiled routes.
+         */
+        routes(): string
+    }
+}

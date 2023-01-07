@@ -8,7 +8,7 @@ export tag HelloWorld
 	<self>
 		<h1> msg
 
-		<p[font-style:italic]> "Your frontend is located at { <code> './resources/imba' }"
+		<p[font-style:italic]> "Your frontend is located at { <code> './resources/frontend' }"
 
 		<h3[m:40px 0 0]> "Essential Links"
 
