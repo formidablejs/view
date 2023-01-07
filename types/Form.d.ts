@@ -1,3 +1,4 @@
+import { AxiosResponse } from "axios";
 import { FormConfig, RequestHandle } from "../ts";
 
 export class Form<T> {
@@ -189,7 +190,7 @@ export class Form<T> {
     @param {string} path
     @param {RequestHandle} config
     */
-    get(path: string, config?: RequestHandle | null): Promise<any> | null;
+    get(path: string, config?: RequestHandle | null): Promise<AxiosResponse>;
     /**
          * Send head request.
          *
@@ -208,7 +209,7 @@ export class Form<T> {
     @param {string} path
     @param {RequestHandle} config
     */
-    head(path: string, config?: RequestHandle | null): Promise<any> | null;
+    head(path: string, config?: RequestHandle | null): Promise<AxiosResponse>;
     /**
          * Send post request.
          *
@@ -227,7 +228,7 @@ export class Form<T> {
     @param {string} path
     @param {RequestHandle} config
     */
-    post(path: string, config?: RequestHandle | null): Promise<any> | null;
+    post(path: string, config?: RequestHandle | null): Promise<AxiosResponse>;
     /**
          * Send put request.
          *
@@ -246,7 +247,7 @@ export class Form<T> {
     @param {string} path
     @param {RequestHandle} config
     */
-    put(path: string, config?: RequestHandle | null): Promise<any> | null;
+    put(path: string, config?: RequestHandle | null): Promise<AxiosResponse>;
     /**
          * Send delete request.
          *
@@ -265,7 +266,7 @@ export class Form<T> {
     @param {string} path
     @param {RequestHandle} config
     */
-    delete(path: string, config?: RequestHandle | null): Promise<any> | null;
+    delete(path: string, config?: RequestHandle | null): Promise<AxiosResponse>;
     /**
          * Send options request.
          *
@@ -284,7 +285,7 @@ export class Form<T> {
     @param {string} path
     @param {RequestHandle} config
     */
-    options(path: string, config?: RequestHandle | null): Promise<any> | null;
+    options(path: string, config?: RequestHandle | null): Promise<AxiosResponse>;
     /**
          * Send delete request.
          *
@@ -303,7 +304,10 @@ export class Form<T> {
     @param {string} path
     @param {RequestHandle} config
     */
-    patch(path: string, config?: RequestHandle | null): Promise<any> | null;
+    patch(path: string, config?: RequestHandle | null): Promise<AxiosResponse>;
+
+    on(name: string, params?: object|RequestHandle, config?: RequestHandle): Promise<AxiosResponse>;
+
     /**
          * Send request.
          *
@@ -325,7 +329,7 @@ export class Form<T> {
     @param {string} path
     @param {RequestHandle} config
     */
-    sendRequest(method: string, path: string, config?: RequestHandle | null): Promise<any> | null;
+    sendRequest(method: string, path: string, config?: RequestHandle | null): Promise<AxiosResponse>;
     /**
          * Get request body object.
          *
