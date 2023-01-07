@@ -11,3 +11,9 @@ export type RequestHandle = {
     onError?: (error: AxiosError) => void;
     onComplete?: () => void;
 }
+
+declare global {
+    interface Window {
+        FormConfig: FormConfig
+    }
+}

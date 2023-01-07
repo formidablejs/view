@@ -10,6 +10,11 @@ export def readProps component
 					process.env = value
 
 					component.removeAttribute(prop.name)
+
+				else if prop.name == 'routes' && value.constructor == Object
+					props[prop.name] = value
+
+					component.removeAttribute(prop.name)
 				else
 					props[prop.name] = value
 
