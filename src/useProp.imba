@@ -14,12 +14,12 @@ tag Props
 			elif !hasAttr(self)
 				ready = true
 
-def waitForProps
+def waitForProps interval\number = 100
 	const condition = do ready === true
 
 	const poll = do(resolve)
 		if condition! then resolve!
-		else setTimeout(&, 100) do poll(resolve)
+		else setTimeout(&, interval) do poll(resolve)
 
 	new Promise(poll)
 
