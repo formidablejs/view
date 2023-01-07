@@ -1,5 +1,6 @@
 import { trim } from './trim'
 import { csrf } from './csrf'
+import { Route } from './useRoute'
 import type { FormConfig } from '../ts'
 import type { RequestHandle } from '../ts'
 
@@ -31,16 +32,23 @@ export class Form
 	def constructor form = {}, config\FormConfig = {}
 		self.form = trim(form || {})
 		self.initialForm = trim(form || {})
-		self.config = config || {}
 		self.processing = false
 		self.errors = {}
 		self.formWasFilled = false
 		self.recentlySuccessful = false
 
+		self.config = {
+			recentlySuccessful: config.recentlySuccessful ?? (globalConfig.recentlySuccessful ?? undefined)
+			renderServerError: config.renderServerError ?? (globalConfig.renderServerError ?? undefined)
+		}
+
 		if self.config.headers
 			self.headers = Object.assign(self.config.headers, self.headers)
 
 		self.fill!
+
+	get globalConfig
+		window.FormConfig || {}
 
 	/**
 	 * Reset form.
@@ -53,7 +61,6 @@ export class Form
 		self.processing = false
 		self.errors = {}
 		self.formWasFilled = false
-		self.recentlySuccessful = false
 
 		self.fill!
 
@@ -220,6 +227,15 @@ export class Form
 	def patch path\string, config\RequestHandle = null
 		self.sendRequest('patch', path, config)
 
+	# Send request on specified route.
+	def on\Promise<any> name\string, params\object|RequestHandle = {}, config\RequestHandle = null
+		config = (config == null || config == undefined) && (params.onSuccess || params.onError || params.onComplete) ? params : config
+		params = params.onSuccess || params.onError || params.onComplete ? {} : params
+
+		const route = new Route(name, params)
+
+		sendRequest(route.method, route.toPath(), config)
+
 	/**
      * Send request.
      *
@@ -265,11 +281,12 @@ export class Form
 
 				setTimeout(&, self.config.recentlySuccessful || 2000) do
 					self.recentlySuccessful = false
-
-				Promise.resolve(response)
+					imba.commit!
 
 				if config && config.onSuccess
 					config.onSuccess(response)
+
+				response
 			)
 			.catch(do(error)
 				self.#success = false
@@ -284,8 +301,6 @@ export class Form
 							response: error.response.data
 						}
 
-				Promise.reject(error)
-
 				if config && config.onError
 					config.onError(error)
 
@@ -293,6 +308,9 @@ export class Form
 
 				if shouldRenderServerError? == true && (error.response.headers && error.response.headers.accept === 'text/html')
 					self.renderError error
+
+				if !config || (config && !config.onError)
+					Promise.reject(error)
 			)
 			.finally(do
 				self.isProcessing(false)
