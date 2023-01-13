@@ -126,6 +126,21 @@ export class Form
 		self.isDirty === false
 
 	/**
+	 * Check if form contains files.
+	 *
+	 * @var {boolean}
+	 */
+	get hasFiles?
+		let files = false
+
+		Object.values(this.body!).forEach(do(i)
+			if i instanceof File
+				files = true
+		)
+
+		files
+
+	/**
      * Clear all errors.
      *
      * @returns {Form}
@@ -263,6 +278,9 @@ export class Form
 			if params !== ''
 				args[0] = path + (path.indexOf('&') !== -1 ? params : "?{params.substring(1)}")
 
+		if self.hasFiles?
+			self.headers['Content-Type'] = 'multipart/form-data'
+
 		args.push {
 			headers: self.headers
 		}
@@ -328,7 +346,7 @@ export class Form
 		const body = {}
 
 		Object.keys(self.form).forEach do(key)
-			Object.assign(body, { [key]: self[key] })
+			body[key] = self[key]
 
 		body
 

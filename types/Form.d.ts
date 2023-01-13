@@ -130,6 +130,14 @@ export class Form<T> {
 
     */
     get isNotDirty(): boolean;
+
+    /**
+	 * Check if form contains files.
+	 *
+	 * @var {boolean}
+	 */
+    get hasFilesΦ(): boolean;
+
     /**
          * Clear all errors.
          *
