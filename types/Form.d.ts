@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios";
-import { FormConfig, RequestHandle } from "../ts";
+import { FormConfig, RequestHandle, UploadProgress } from "../ts";
 
 export class Form<T> {
     /**
@@ -39,6 +39,14 @@ export class Form<T> {
 
     */
     reset(): void;
+
+    /**
+	 * Reset upload progress.
+	 *
+	 * @returns {void}
+	 */
+    clearUploadProgress(): void;
+
     /**
          * Check if the form is processing.
          *
@@ -137,6 +145,8 @@ export class Form<T> {
 	 * @var {boolean}
 	 */
     get hasFilesΦ(): boolean;
+
+    get progress(): UploadProgress?;
 
     /**
          * Clear all errors.
