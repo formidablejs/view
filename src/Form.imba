@@ -3,6 +3,7 @@ import { csrf } from './csrf'
 import { Route } from './useRoute'
 import type { FormConfig } from '../ts'
 import type { RequestHandle } from '../ts'
+import type { UploadProgress } from '../ts'
 
 export class Form
 	prop form
@@ -12,6 +13,13 @@ export class Form
 	prop errors
 	prop formWasFilled
 	prop recentlySuccessful
+	prop #_progress = {
+		loaded: null
+		total: null
+		bytes: null
+		rate: null
+		percentage: null
+	}
 
 	prop headers = {
 		'X-FORMIDABLE-REQUEST': true
@@ -63,6 +71,18 @@ export class Form
 		self.formWasFilled = false
 
 		self.fill!
+
+	/**
+	 * Reset upload progress.
+	 *
+	 * @returns {void}
+	 */
+	def clearUploadProgress
+		self.#_progress = {
+			loaded: null
+			total: null
+			percentage: null
+		}
 
 	/**
      * Check if the form is processing.
@@ -139,6 +159,17 @@ export class Form
 		)
 
 		files
+
+	/**
+	 * Get upload progress.
+	 *
+	 * @returns {UploadProgress}
+	 */
+	get progress
+		if #_progress.percentage == null
+			return null
+
+		#_progress
 
 	/**
      * Clear all errors.
@@ -284,6 +315,15 @@ export class Form
 		args.push {
 			headers: self.headers
 		}
+
+		args[2].onUploadProgress = do(progressEvent)
+			self.#_progress.loaded = progressEvent.loaded
+			self.#_progress.total = progressEvent.total
+			self.#_progress.bytes = progressEvent.bytes
+			self.#_progress.rate = progressEvent.rate
+			self.#_progress.percentage = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+
+			imba.commit!
 
 		window.axios[method.toLowerCase!](...args)
 			.then(do(response)
