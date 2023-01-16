@@ -11,4 +11,4 @@ export function waitForProps(interval?: number): Promise<any>;
 /**
  * Get specific prop or all props.
  */
-export function useProp(prop?: string): any;
+export function useProp<T>(prop?: string): T;
