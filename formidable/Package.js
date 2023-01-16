@@ -10,6 +10,16 @@ exports.Package = class Package {
         paths: {
           './': `./formidable/vendor/${path}`
         }
+      },
+      auth: {
+        paths: {
+            './': `./formidable/auth/${path}`
+        }
+      },
+      'auth-common': {
+        paths: {
+            './': './formidable/auth/common'
+        }
       }
     }
   }
