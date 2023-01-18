@@ -316,7 +316,7 @@ export class Form
 			headers: self.headers
 		}
 
-		args[2].onUploadProgress = do(progressEvent)
+		args[args.length - 1]['onUploadProgress'] = do(progressEvent)
 			self.#_progress.loaded = progressEvent.loaded
 			self.#_progress.total = progressEvent.total
 			self.#_progress.bytes = progressEvent.bytes
