@@ -11,4 +11,7 @@ import { view } from '@formidablejs/framework'
 # routes are loaded by the RouteServiceResolver within a group which
 # is assigned the "session" middleware group.
 
-Route.get '/*', do view(App)
+Route.get '/*', do(request\Request) view(App, {
+	formidableVersion: request.version,
+	nodeVersion: process.version
+})

@@ -1,18 +1,10 @@
 import { FormProgress } from '@formidablejs/view'
-import { Home } from './pages/Home'
-import { About } from './pages/About'
+import { Welcome } from './pages/Welcome'
+import '../css/app.css'
 
 export tag App
-	css @off o:0
-
 	def render
-		<self[ff:Nunito ta:center] ease>
+		<self>
 			<FormProgress observeUrl>
 
-			<nav[p:7 fs:large]>
-				<a[fw:bold] route-to="/"> "Home"
-				" | "
-				<a[fw:bold] route-to="/about"> "About"
-
-			<Home route="/">
-			<About route="/about">
+			<Welcome route="/">

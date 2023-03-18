@@ -1,15 +1,10 @@
-import { useForm } from '@formidablejs/view'
 import { useProp } from '@formidablejs/view'
 
 export tag Welcome
 	prop formidableVersion\string = useProp('formidableVersion')
 	prop nodeVersion\string = useProp('nodeVersion')
-	prop user\User = useProp('user')
 
-	def logout
-		useForm().on('logout', {
-			onSuccess: do window.location.reload()
-		})
+	counter\number = 0
 
 	def render
 		<self>
@@ -23,13 +18,9 @@ export tag Welcome
 					<div.welcome>
 						<h4> "Yey! You have successfully created a new Formidable project."
 
-					<div[d:flex g:1 jc:center].auth>
-						if user
-							<button @click=logout> "Logout"
-							<p[lh:5px]> "Hello, {user.name} 👋"
-						else
-							<button route-to="/register"> "Register"
-							<button route-to="/login"> "Login"
+					<div.counter>
+						<button @click=(counter++)>
+							"Clicked {counter} times"
 
 					<ul.links>
 						<li> <a href="https://formidablejs.org/" target="_blank" rel="noopener"> "Formidable"
