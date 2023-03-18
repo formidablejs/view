@@ -16,6 +16,8 @@ import { without } from '@formidablejs/framework/lib/Support/Helpers'
 
 Route.get('/*', (request: Request) => {
 	return view(App, {
+        formidableVersion: request.version,
+        nodeVersion: process.version,
 		user: request.auth().check() ? without(request.user(), [
 			'password', 'remember_token'
 		]) : null

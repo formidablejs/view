@@ -8,12 +8,9 @@ import { EmailVerification } from './pages/Auth/EmailVerification'
 import { EmailUnverified } from './pages/Auth/EmailUnverified'
 import { ForgotPassword } from './pages/Auth/ForgotPassword'
 import { PasswordReset } from './pages/Auth/PasswordReset'
+import '../css/app.css'
 
 export tag App
-	css
-		@off o:0
-		body m:0
-
 	prop user\User = useProp('user')
 
 	def mount
@@ -21,7 +18,7 @@ export tag App
 			router.go('/email/unverified')
 
 	def render
-		<self[ff:Nunito] ease>
+		<self>
 			<FormProgress observeUrl>
 
 			<Welcome route="/">

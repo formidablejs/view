@@ -32,5 +32,10 @@ declare module '@formidablejs/framework' {
          * Compiled routes.
          */
         routes(): string
+
+        /**
+         * Page data.
+         */
+        dataPage(): string
     }
 }

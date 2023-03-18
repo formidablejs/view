@@ -13,4 +13,7 @@ import { view } from '@formidablejs/framework'
  * is assigned the "session" middleware group.
  */
 
-Route.get('/*', () => view(App))
+Route.get('/*', (request: Request) => view(App, {
+    formidableVersion: request.version,
+	nodeVersion: process.version
+}))

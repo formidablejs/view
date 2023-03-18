@@ -20,4 +20,4 @@ export class App < View
 				<script type="module" src="../frontend/main.imba">
 
 				try
-					<Props html:locale=locale html:routes=routes()>
+					<Props html:data-page=dataPage!>
