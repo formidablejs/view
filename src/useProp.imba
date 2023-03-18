@@ -27,7 +27,13 @@ def waitForProps interval\number = 100
 #
 # @param {string|null} prop
 # @returns {any}
-def useProp prop = null
+def useProp prop\string = null
+	if prop
+		if props['data-page'][prop]
+			return props['data-page'][prop]
+		else
+			return props[prop]
+
 	prop ? props[prop] : props
 
 export {

@@ -27,7 +27,7 @@ class Route
 		const compiledPath = []
 
 		Object.keys(this._params).forEach(do(key)
-			if !self._route.params[key] && key !== '_query'
+			if !self._route.params.includes(":{key}") && key !== '_query'
 				query[key] = self._params[key]
 		)
 
