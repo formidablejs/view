@@ -1,24 +1,25 @@
+import without from '@formidablejs/framework/lib/Support/Helpers/without'
+
 export def readProps component
 	let props = { }
 
 	for prop in component.attributes
-		if prop !== undefined && prop.name !== 'class'
-			try
-				const value = JSON.parse(prop.nodeValue)
+		if prop === undefined || prop === null || (prop && prop.nodeValue === "html:{prop.name}")
+			continue
 
-				if prop.name == 'env' && value.constructor == Object
-					process.env = value
+		try
+			const value = JSON.parse(prop.nodeValue)
 
-					component.removeAttribute(prop.name)
+			if prop.name === 'data-page' && value.constructor === Object && value.env && value.env.constructor === Object
+				props[prop.name] = without(value, ['env'])
 
-				else if prop.name == 'routes' && value.constructor == Object
-					props[prop.name] = value
+				process.env = value.env
+			else
+				props[prop.name] = value
 
-					component.removeAttribute(prop.name)
-				else
-					props[prop.name] = value
+		catch
+			props[prop.name] = prop.nodeValue
 
-			catch
-				props[prop.name] = prop.nodeValue
+	component.remove!
 
 	props

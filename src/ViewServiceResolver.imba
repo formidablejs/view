@@ -2,6 +2,7 @@ import { ServiceResolver } from '@formidablejs/framework'
 import { Route } from '@formidablejs/framework'
 import { View } from '@formidablejs/framework'
 import { without } from '@formidablejs/framework/lib/Support/Helpers'
+import { imbaEnv } from '@formidablejs/framework/lib/Support/Helpers'
 import { MakeFormCommand } from './Commands/MakeFormCommand'
 
 export class ViewServiceResolver < ServiceResolver
@@ -20,11 +21,14 @@ export class ViewServiceResolver < ServiceResolver
 		JSON.stringify(named)
 
 	def dataPage
-		const payload = without(this.data, [
-			'_flashed',
-			'_old',
-			'csrf_token'
-		])
+		const payload = {
+			props: without(this.data, [
+				'_flashed',
+				'_old',
+				'csrf_token'
+			])
+			env: imbaEnv(false)
+		}
 
 		const routes = {}
 
@@ -33,10 +37,10 @@ export class ViewServiceResolver < ServiceResolver
 				routes[route.name] = {
 					method: route.method
 					path: route.path
-					params: route.path.match(/\:[a-zA-Z]+/gm) ?? {}
+					params: route.path.match(/\:[a-zA-Z]+/gm) ?? []
 				}
 
-		payload.routes = routes
+		payload.props.routes = routes
 
 		JSON.stringify(payload)
 

@@ -29,7 +29,9 @@ def waitForProps interval\number = 100
 # @returns {any}
 def useProp prop\string = null
 	if prop
-		if props['data-page'][prop]
+		if props['data-page']['props'][prop]
+			return props['data-page']['props'][prop]
+		elif props['data-page'][prop]
 			return props['data-page'][prop]
 		else
 			return props[prop]
