@@ -19,5 +19,5 @@ export class App < View
 			<body>
 				<script type="module" src="../frontend/main.imba">
 
-				try
-					<Props html:data-page=dataPage!>
+				# load props from the server
+				<Props html:data-page=dataPage!>
