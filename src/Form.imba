@@ -294,7 +294,6 @@ export class Form
 		self.isProcessing(true).fill!
 
 		await csrf!
-		await csrf!
 
 		const args\any[] = [ path ]
 
@@ -364,7 +363,7 @@ export class Form
 
 				const shouldRenderServerError? = self.config.renderServerError ?? true
 
-				if shouldRenderServerError? == true && (error.response.headers && error.response.headers.accept === 'text/html')
+				if shouldRenderServerError? == true && (error.response && error.response.headers && error.response.headers.accept === 'text/html')
 					self.renderError error
 
 				if !config || (config && !config.onError)
