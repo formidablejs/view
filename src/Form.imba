@@ -56,7 +56,7 @@ export class Form
 		self.fill!
 
 	get globalConfig
-		window.FormConfig || {}
+		globalThis.FormConfig || {}
 
 	/**
 	 * Reset form.
@@ -324,7 +324,7 @@ export class Form
 
 			imba.commit!
 
-		window.axios[method.toLowerCase!](...args)
+		globalThis.axios[method.toLowerCase!](...args)
 			.then(do(response)
 				self.#success = true
 				self.recentlySuccessful = true
