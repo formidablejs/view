@@ -8,7 +8,7 @@ export tag Welcome
 
 	def logout
 		useForm().on('logout', {
-			onSuccess: do window.location.reload()
+			onSuccess: do globalThis.location.reload()
 		})
 
 	def render

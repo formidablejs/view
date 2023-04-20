@@ -19,7 +19,7 @@ export tag Register
 		<self>
 			<h1> "Create an Account"
 
-			<form @submit.prevent=form.on('register').then(do window.location.assign('/'))>
+			<form @submit.prevent=form.on('register').then(do globalThis.location.assign('/'))>
 				<label[d:block mb:3]>
 					"Full Name"
 					<input[d:block bw:1px] [bc:red5]=form.errors.name type="text" placeholder="Full Name" name="name" bind=form.name required>

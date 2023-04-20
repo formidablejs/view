@@ -6,7 +6,7 @@ export class Progress
 		Math.floor(loaded * 1.0) / total
 
 	static def init config\object = { showSpinner: false }
-		const axios = window.axios
+		const axios = globalThis.axios
 
 		let requestsCounter = 0
 
