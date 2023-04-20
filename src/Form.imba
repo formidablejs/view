@@ -1,5 +1,4 @@
 import { trim } from './trim'
-import { csrf } from './csrf'
 import { Route } from './useRoute'
 import type { FormConfig } from '../ts'
 import type { RequestHandle } from '../ts'
@@ -292,8 +291,6 @@ export class Form
      */
 	def sendRequest method\string, path\string, config\RequestHandle = null
 		self.isProcessing(true).fill!
-
-		await csrf!
 
 		const args\any[] = [ path ]
 
