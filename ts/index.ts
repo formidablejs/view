@@ -1,4 +1,4 @@
-import type { AxiosError, AxiosResponse } from "axios";
+import type { AxiosError, AxiosResponse, AxiosStatic } from "axios";
 
 export type FormConfig = {
     headers?: object;
@@ -24,6 +24,9 @@ declare global {
     interface Window {
         FormConfig: FormConfig
     }
+
+    var FormConfig: FormConfig
+    var axios: AxiosStatic
 }
 
 declare module '@formidablejs/framework' {

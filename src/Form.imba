@@ -1,5 +1,4 @@
 import { trim } from './trim'
-import { csrf } from './csrf'
 import { Route } from './useRoute'
 import type { FormConfig } from '../ts'
 import type { RequestHandle } from '../ts'
@@ -56,7 +55,7 @@ export class Form
 		self.fill!
 
 	get globalConfig
-		window.FormConfig || {}
+		globalThis.FormConfig || {}
 
 	/**
 	 * Reset form.
@@ -293,8 +292,6 @@ export class Form
 	def sendRequest method\string, path\string, config\RequestHandle = null
 		self.isProcessing(true).fill!
 
-		await csrf!
-
 		const args\any[] = [ path ]
 
 		if !['get', 'head', 'options'].includes(method.toLowerCase!)
@@ -324,7 +321,7 @@ export class Form
 
 			imba.commit!
 
-		window.axios[method.toLowerCase!](...args)
+		globalThis.axios[method.toLowerCase!](...args)
 			.then(do(response)
 				self.#success = true
 				self.recentlySuccessful = true

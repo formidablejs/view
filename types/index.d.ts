@@ -1,5 +1,4 @@
 import { clone } from "./clone";
-import { csrf } from "./csrf";
 import { Form } from "./Form";
 import { FormProgress } from './FormProgress'
 import { hasAttr } from "./hasAttr";
@@ -17,7 +16,6 @@ import { waitForProps } from "./useProp";
 
 export {
     clone,
-    csrf,
     Form,
     FormProgress,
     hasAttr,

@@ -17,7 +17,7 @@ export tag Login
 		<self>
 			<h1> "Login"
 
-			<form @submit.prevent=form.on('login').then(do window.location.assign('/'))>
+			<form @submit.prevent=form.on('login').then(do globalThis.location.assign('/'))>
 				<label[d:block mb:3]>
 					"Email Address"
 					<input[d:block bw:1px] [bc:red5]=form.errors.email type="email" placeholder="Email Address" name="email" bind=form.email required>

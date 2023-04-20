@@ -4,10 +4,10 @@
 
 import axios from 'axios'
 
-window.axios = axios
+globalThis.axios = axios
 
 # Imba's hot-module-reload feature doesn't work as expected in the Formidable
 # Framework. We'll disable it to avoid running into issues.
 # If you wish to use it, you can comment out or remove line 13.
 
-window.imba_devtools.socket.close! if window.imba_devtools
+globalThis.imba_devtools.socket.close! if globalThis.imba_devtools

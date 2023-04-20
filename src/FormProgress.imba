@@ -72,8 +72,8 @@ export tag FormProgress
 		let previousUrl = ''
 
 		const observer = new MutationObserver do(mutation)
-			if window.location.href !== previousUrl
-				previousUrl = window.location.href
+			if globalThis.location.href !== previousUrl
+				previousUrl = globalThis.location.href
 
 				NProgress.done(true)
 
