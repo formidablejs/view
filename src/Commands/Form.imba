@@ -22,7 +22,7 @@ export class Form < Stub
 		}
 
 	get stub\string
-		join(__dirname, 'stub')
+		join(__dirname, '..', '..', 'formidable', 'stub')
 
 	get fileName\string
 		this.realClassName + '.ts'
