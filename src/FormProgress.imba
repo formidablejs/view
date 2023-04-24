@@ -7,7 +7,7 @@ global css
 
 	#nprogress .bar
 		pos:fixed zi:1031 t:0 l:0
-		w:100% h:2px
+		w:100%
 
 	#nprogress .peg
 		d:block pos:absolute r:0px w:100px h:100%
@@ -48,6 +48,7 @@ export tag FormProgress
 	prop positionUsing\string
 	prop barSelector\string
 	prop observeUrl\boolean = false
+	prop height\number = 2
 
 	def mount\void
 		addMissingCss!
@@ -87,7 +88,7 @@ export tag FormProgress
 	def addMissingCss
 		const style = document.createElement('style')
 
-		style.textContent = '#nprogress .bar { background: ' + color + '; } #nprogress .peg { box-shadow: 0 0 10px ' + color + ', 0 0 5px ' + color + ';}#nprogress .spinner-icon {border-color: ' + color + '; border-top-color: ' + color + ';border-left-color: transparent;-webkit-animation: nprogress-spinner 400ms linear infinite;animation: nprogress-spinner 400ms linear infinite;}@-webkit-keyframes nprogress-spinner {0% {-webkit-transform: rotate(0deg); } 100% { -webkit-transform: rotate(360deg);}}'
+		style.textContent = '#nprogress .bar { background: ' + color + '; height: ' + height + 'px; } #nprogress .peg { box-shadow: 0 0 10px ' + color + ', 0 0 5px ' + color + ';}#nprogress .spinner-icon {border-color: ' + color + '; border-top-color: ' + color + ';border-left-color: transparent;-webkit-animation: nprogress-spinner 400ms linear infinite;animation: nprogress-spinner 400ms linear infinite;}@-webkit-keyframes nprogress-spinner {0% {-webkit-transform: rotate(0deg); } 100% { -webkit-transform: rotate(360deg);}}'
 
 		document.head.appendChild(style)
 
