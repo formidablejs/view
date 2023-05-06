@@ -14,7 +14,7 @@ export class Progress
 			axios.interceptors.request.use do(conf)
 				requestsCounter++
 
-				if (NProgress)
+				if NProgress
 					NProgress.start!
 
 				conf
