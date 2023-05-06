@@ -49,6 +49,10 @@ export tag FormProgress
 	prop barSelector\string
 	prop observeUrl\boolean = false
 	prop height\number = 2
+	prop h\number
+
+	get progressHeight\number
+		h ? h : height
 
 	def mount\void
 		addMissingCss!
@@ -88,7 +92,7 @@ export tag FormProgress
 	def addMissingCss
 		const style = document.createElement('style')
 
-		style.textContent = '#nprogress .bar { background: ' + color + '; height: ' + height + 'px; } #nprogress .peg { box-shadow: 0 0 10px ' + color + ', 0 0 5px ' + color + ';}#nprogress .spinner-icon {border-color: ' + color + '; border-top-color: ' + color + ';border-left-color: transparent;-webkit-animation: nprogress-spinner 400ms linear infinite;animation: nprogress-spinner 400ms linear infinite;}@-webkit-keyframes nprogress-spinner {0% {-webkit-transform: rotate(0deg); } 100% { -webkit-transform: rotate(360deg);}}'
+		style.textContent = '#nprogress .bar { background: ' + color + '; height: ' + progressHeight + 'px; } #nprogress .peg { box-shadow: 0 0 10px ' + color + ', 0 0 5px ' + color + ';}#nprogress .spinner-icon {border-color: ' + color + '; border-top-color: ' + color + ';border-left-color: transparent;-webkit-animation: nprogress-spinner 400ms linear infinite;animation: nprogress-spinner 400ms linear infinite;}@-webkit-keyframes nprogress-spinner {0% {-webkit-transform: rotate(0deg); } 100% { -webkit-transform: rotate(360deg);}}'
 
 		document.head.appendChild(style)
 
