@@ -13,6 +13,7 @@ import { useForm } from './useForm'
 import { useProp } from './useProp'
 import { useRoute } from './useRoute'
 import { waitForProps } from './useProp'
+import NProgress from "nprogress"
 
 export {
 	clone
@@ -20,6 +21,7 @@ export {
 	FormProgress
 	hasAttr
 	isWaiting
+	NProgress
 	Progress
 	props
 	Props
