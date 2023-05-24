@@ -1,23 +1,22 @@
 import { AxiosResponse } from "axios";
 import { FormConfig, RequestHandle, UploadProgress } from "../ts";
 
-export class Form<T> {
-    /**
-         * Instantiate form.
-         *
-         * @param {object|null} form
-         * @param {FormConfig|null} config
-         */
-    /**
-    *
-         * Instantiate form.
-         *
-         * @param {object|null} form
-         * @param {FormConfig|null} config
+type FormRequest = {
+    method: string;
+    path: string;
+}
 
-    @param {FormConfig} config
-    */
-    constructor(form?: T, config?: FormConfig | null);
+declare const $__patch__$: unique symbol;
+declare const $__init__$: unique symbol;
+declare const $fatal$: unique symbol;
+declare const $success$: unique symbol;
+
+export class Form<T> {
+    [$__patch__$]($$?: {}): void;
+    [$__init__$]($$?: any, deep?: boolean): void;
+    [$fatal$]: any;
+    [$success$]: any;
+
     form: T;
     initialForm: T;
     config: FormConfig;
@@ -25,350 +24,156 @@ export class Form<T> {
     errors: Record<keyof T, string[]>;
     formWasFilled: boolean;
     recentlySuccessful: boolean;
+    request?: FormRequest;
     headers: {};
-    /**
-         * Reset form.
-         *
-         * @returns {void}
-         */
-    /**
-    *
-         * Reset form.
-         *
-         * @returns {void}
 
-    */
+    /**
+     * Instantiate form.
+     */
+    constructor(form?: T, config?: FormConfig | null);
+
+    /**
+     * Reset form.
+     */
     reset(): void;
 
     /**
 	 * Reset upload progress.
-	 *
-	 * @returns {void}
 	 */
     clearUploadProgress(): void;
 
     /**
-         * Check if the form is processing.
-         *
-         * @returns {boolean}
-         */
-    /**
-    *
-         * Check if the form is processing.
-         *
-         * @returns {boolean}
-
-    */
+     * Check if the form is processing.
+     */
     get processingΦ(): boolean;
-    /**
-         * Check if form has errors.
-         *
-         * @var {boolean}
-         */
-    /**
-    *
-         * Check if form has errors.
-         *
-         * @var {boolean}
 
-    */
+    /**
+     * Check if form has errors.
+     */
     get hasErrors(): boolean;
-    /**
-         * Check if form was fatal.
-         *
-         * @var {boolean}
-         */
-    /**
-    *
-         * Check if form was fatal.
-         *
-         * @var {boolean}
 
-    */
+    /**
+     * Check if form was fatal.
+     */
     get isFatalΦ(): boolean;
-    /**
-         * Get fatal error.
-         *
-         * @var {object|string}
-         */
-    /**
-    *
-         * Get fatal error.
-         *
-         * @var {object|string}
 
-    */
-    get fatalError(): any;
     /**
-         * Check if request was successful.
-         *
-         * @var {boolean}
-         */
-    /**
-    *
-         * Check if request was successful.
-         *
-         * @var {boolean}
+     * Get fatal error.
+     */
+    get fatalError(): string|object;
 
-    */
-    get isSuccessfulΦ(): any;
     /**
-         * Check if form has been modified.
-         *
-         * @var {boolean} dirty
-         */
-    /**
-    *
-         * Check if form has been modified.
-         *
-         * @var {boolean} dirty
+     * Check if request was successful.
+     */
+    get isSuccessfulΦ(): boolean;
 
-    */
+    /**
+     * Check if form has been modified.
+     */
     get isDirty(): boolean;
-    /**
-         * Check if form has not been modified.
-         *
-         * @var {boolean}
-         */
-    /**
-    *
-         * Check if form has not been modified.
-         *
-         * @var {boolean}
 
-    */
+    /**
+     * Check if form has not been modified.
+     */
     get isNotDirty(): boolean;
 
     /**
 	 * Check if form contains files.
-	 *
-	 * @var {boolean}
 	 */
     get hasFilesΦ(): boolean;
 
-    get progress(): UploadProgress?;
+    /**
+     * Get upload progress.
+     */
+    get progress(): UploadProgress | null;
 
     /**
-         * Clear all errors.
-         *
-         * @returns {Form}
-         */
-    /**
-    *
-         * Clear all errors.
-         *
-         * @returns {Form}
-
-    */
+     * Clear all errors.
+     */
     clearErrors(): Form<T>;
-    /**
-         * Fill Form body.
-         *
-         * @returns {void}
-         */
-    /**
-    *
-         * Fill Form body.
-         *
-         * @returns {void}
 
-    */
+    /**
+     * Fill Form body.
+     */
     fill(): void;
-    /**
-         * Change processing status.
-         *
-         * @param {boolean} processing
-         * @returns {Form}
-         */
-    /**
-    *
-         * Change processing status.
-         *
-         * @param {boolean} processing
-         * @returns {Form}
 
-    @param {boolean} processing
-    */
+    /**
+     * Change processing status.
+     */
     isProcessing(processing?: boolean): Form<T>;
-    /**
-         * Send get request.
-         *
-         * @param {string} path route path.
-         * @param {RequestHandle|null} config
-         * @returns {Promise|null}
-         */
-    /**
-    *
-         * Send get request.
-         *
-         * @param {string} path route path.
-         * @param {RequestHandle|null} config
-         * @returns {Promise|null}
 
-    @param {string} path
-    @param {RequestHandle} config
-    */
+    /**
+     * Send get request.
+     */
     get(path: string, config?: RequestHandle | null): Promise<AxiosResponse>;
-    /**
-         * Send head request.
-         *
-         * @param {string} path route path.
-         * @param {RequestHandle|null} config
-         * @returns {Promise|null}
-         */
-    /**
-    *
-         * Send head request.
-         *
-         * @param {string} path route path.
-         * @param {RequestHandle|null} config
-         * @returns {Promise|null}
 
-    @param {string} path
-    @param {RequestHandle} config
-    */
+    /**
+     * Send head request.
+     */
     head(path: string, config?: RequestHandle | null): Promise<AxiosResponse>;
-    /**
-         * Send post request.
-         *
-         * @param {string} path route path.
-         * @param {RequestHandle|null} config
-         * @returns {Promise|null}
-         */
-    /**
-    *
-         * Send post request.
-         *
-         * @param {string} path route path.
-         * @param {RequestHandle|null} config
-         * @returns {Promise|null}
 
-    @param {string} path
-    @param {RequestHandle} config
-    */
+    /**
+     * Send post request.
+     */
     post(path: string, config?: RequestHandle | null): Promise<AxiosResponse>;
-    /**
-         * Send put request.
-         *
-         * @param {string} path route path.
-         * @param {RequestHandle|null} config
-         * @returns {Promise|null}
-         */
-    /**
-    *
-         * Send put request.
-         *
-         * @param {string} path route path.
-         * @param {RequestHandle|null} config
-         * @returns {Promise|null}
 
-    @param {string} path
-    @param {RequestHandle} config
-    */
+    /**
+     * Send put request.
+     */
     put(path: string, config?: RequestHandle | null): Promise<AxiosResponse>;
-    /**
-         * Send delete request.
-         *
-         * @param {string} path route path.
-         * @param {RequestHandle|null} config
-         * @returns {Promise|null}
-         */
-    /**
-    *
-         * Send delete request.
-         *
-         * @param {string} path route path.
-         * @param {RequestHandle|null} config
-         * @returns {Promise|null}
 
-    @param {string} path
-    @param {RequestHandle} config
-    */
+    /**
+     * Send delete request.
+     */
     delete(path: string, config?: RequestHandle | null): Promise<AxiosResponse>;
-    /**
-         * Send options request.
-         *
-         * @param {string} path route path.
-         * @param {RequestHandle|null} config
-         * @returns {Promise|null}
-         */
-    /**
-    *
-         * Send options request.
-         *
-         * @param {string} path route path.
-         * @param {RequestHandle|null} config
-         * @returns {Promise|null}
 
-    @param {string} path
-    @param {RequestHandle} config
-    */
+    /**
+     * Send options request.
+     */
     options(path: string, config?: RequestHandle | null): Promise<AxiosResponse>;
-    /**
-         * Send delete request.
-         *
-         * @param {string} path route path.
-         * @param {RequestHandle|null} config
-         * @returns {Promise|null}
-         */
-    /**
-    *
-         * Send delete request.
-         *
-         * @param {string} path route path.
-         * @param {RequestHandle|null} config
-         * @returns {Promise|null}
 
-    @param {string} path
-    @param {RequestHandle} config
-    */
+    /**
+     * Send delete request.
+     */
     patch(path: string, config?: RequestHandle | null): Promise<AxiosResponse>;
 
+    /**
+     * Send request on specified route.
+     */
     on(name: string, params?: object|RequestHandle, config?: RequestHandle): Promise<AxiosResponse>;
 
     /**
-         * Send request.
-         *
-         * @param {string} method request method.
-         * @param {string} path route path.
-         * @param {RequestHandle|null} config
-         * @returns {Promise|null}
-         */
-    /**
-    *
-         * Send request.
-         *
-         * @param {string} method request method.
-         * @param {string} path route path.
-         * @param {RequestHandle|null} config
-         * @returns {Promise|null}
+     * Set request method and path.
+     */
+    as(method: string, path: string): Form<T>;
 
-    @param {string} method
-    @param {string} path
-    @param {RequestHandle} config
-    */
+    /**
+     * Set request method and path using route name.
+     */
+    asRoute(name: string, params?: object): Form<T>;
+
+    /**
+     * Validate input.
+     */
+    validate(input: keyof T | keyof T[]): Promise<AxiosResponse>
+
+    /**
+     * Submit form.
+     */
+    submit(config?: RequestHandle): Promise<AxiosResponse>;
+
+    /**
+     * Send request.
+     */
     sendRequest(method: string, path: string, config?: RequestHandle | null): Promise<AxiosResponse>;
-    /**
-         * Get request body object.
-         *
-         * @returns {object} body
-         */
-    /**
-    *
-         * Get request body object.
-         *
-         * @returns {object} body
 
-    */
+    /**
+     * Get request body object.
+     */
     body(): object;
+
+    /**
+     * Render http error.
+     */
     renderError(error: any): HTMLDivElement;
-    [$__patch__$]($$?: {}): void;
-    [$__init__$]($$?: any, deep?: boolean): void;
-    [$fatal$]: any;
-    [$success$]: any;
 }
-declare const $__patch__$: unique symbol;
-declare const $__init__$: unique symbol;
-declare const $fatal$: unique symbol;
-declare const $success$: unique symbol;
-export {};

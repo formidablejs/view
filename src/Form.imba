@@ -1,3 +1,4 @@
+import { AxiosResponse, AxiosError } from 'axios'
 import { trim } from './trim'
 import { Route } from './useRoute'
 import type { FormConfig } from '../ts'
@@ -20,6 +21,8 @@ export class Form
 		percentage: null
 	}
 
+	prop request = null
+
 	prop headers = {
 		'X-FORMIDABLE-REQUEST': true
 	}
@@ -30,12 +33,6 @@ export class Form
 	}
 	prop #success = false
 
-	/**
-     * Instantiate form.
-     *
-     * @param {object|null} form
-     * @param {FormConfig|null} config
-     */
 	def constructor form = {}, config\FormConfig = {}
 		self.form = trim(form || {})
 		self.initialForm = trim(form || {})
@@ -54,15 +51,10 @@ export class Form
 
 		self.fill!
 
-	get globalConfig
+	get globalConfig\FormConfig|object
 		globalThis.FormConfig || {}
 
-	/**
-	 * Reset form.
-	 *
-	 * @returns {void}
-	 */
-	def reset
+	def reset\void
 		self.form = trim(self.initialForm || {})
 
 		self.processing = false
@@ -71,64 +63,29 @@ export class Form
 
 		self.fill!
 
-	/**
-	 * Reset upload progress.
-	 *
-	 * @returns {void}
-	 */
-	def clearUploadProgress
+	def clearUploadProgress\void
 		self.#_progress = {
 			loaded: null
 			total: null
 			percentage: null
 		}
 
-	/**
-     * Check if the form is processing.
-     *
-     * @returns {boolean}
-     */
-	get processing?
+	get processing?\boolean
 		self.processing
 
-	/**
-     * Check if form has errors.
-     *
-     * @var {boolean}
-     */
-	get hasErrors
+	get hasErrors\boolean
 		Object.keys(self.errors).length > 0
 
-	/**
-	 * Check if form was fatal.
-	 *
-	 * @var {boolean}
-	 */
-	get isFatal?
+	get isFatal?\boolean
 		self.#fatal.error !== null && self.#fatal.error !== undefined
 
-	/**
-	 * Get fatal error.
-	 *
-	 * @var {object|string}
-	 */
-	get fatalError
+	get fatalError\object|string
 		self.#fatal.response
 
-	/**
-	 * Check if request was successful.
-	 *
-	 * @var {boolean}
-	 */
-	get isSuccessful?
+	get isSuccessful?\boolean
 		self.#success
 
-	/**
-     * Check if form has been modified.
-     *
-     * @var {boolean} dirty
-     */
-	get isDirty
+	get isDirty\boolean
 		let dirty = false
 
 		Object.keys(self.form).forEach do(key)
@@ -136,20 +93,10 @@ export class Form
 
 		dirty
 
-	/**
-     * Check if form has not been modified.
-     *
-     * @var {boolean}
-     */
-	get isNotDirty
+	get isNotDirty\boolean
 		self.isDirty === false
 
-	/**
-	 * Check if form contains files.
-	 *
-	 * @var {boolean}
-	 */
-	get hasFiles?
+	get hasFiles?\boolean
 		let files = false
 
 		Object.values(this.body!).forEach(do(i)
@@ -159,120 +106,49 @@ export class Form
 
 		files
 
-	/**
-	 * Get upload progress.
-	 *
-	 * @returns {UploadProgress}
-	 */
-	get progress
+	get progress\UploadProgress
 		if #_progress.percentage == null
 			return null
 
 		#_progress
 
-	/**
-     * Clear all errors.
-     *
-     * @returns {Form}
-     */
-	def clearErrors
+	def clearErrors\Form
 		self.errors = {}
 
 		self
 
-	/**
-     * Fill Form body.
-     *
-     * @returns {void}
-     */
-	def fill
+	def fill\void
 		Object.keys(self.form).forEach do(key)
 			self[key] = form[key] if !self.formWasFilled
 
 		self.formWasFilled = true
 
-	/**
-     * Change processing status.
-     *
-     * @param {boolean} processing
-     * @returns {Form}
-     */
-	def isProcessing processing\boolean = true
+	def isProcessing\Form processing\boolean = true
 		self.processing = processing
 
 		self
 
-	/**
-     * Send get request.
-     *
-     * @param {string} path route path.
-     * @param {RequestHandle|null} config
-     * @returns {Promise|null}
-     */
-	def get path\string, config\RequestHandle = null
+	def get\Promise|null path\string, config\RequestHandle = null
 		self.sendRequest('get', path, config)
 
-	/**
-     * Send head request.
-     *
-     * @param {string} path route path.
-	 * @param {RequestHandle|null} config
-     * @returns {Promise|null}
-     */
-	def head path\string, config\RequestHandle = null
+	def head\Promise|null path\string, config\RequestHandle = null
 		self.sendRequest('head', path, config)
 
-	/**
-     * Send post request.
-     *
-     * @param {string} path route path.
-	 * @param {RequestHandle|null} config
-     * @returns {Promise|null}
-     */
-	def post path\string, config\RequestHandle = null
+	def post\Promise|null path\string, config\RequestHandle = null
 		self.sendRequest('post', path, config)
 
-	/**
-     * Send put request.
-     *
-     * @param {string} path route path.
-	 * @param {RequestHandle|null} config
-     * @returns {Promise|null}
-     */
-	def put path\string, config\RequestHandle = null
+	def put\Promise|null path\string, config\RequestHandle = null
 		self.sendRequest('put', path, config)
 
-	/**
-     * Send delete request.
-     *
-     * @param {string} path route path.
-	 * @param {RequestHandle|null} config
-     * @returns {Promise|null}
-     */
-	def delete path\string, config\RequestHandle = null
+	def delete\Promise|null path\string, config\RequestHandle = null
 		self.sendRequest('delete', path, config)
 
-	/**
-     * Send options request.
-     *
-     * @param {string} path route path.
-	 * @param {RequestHandle|null} config
-     * @returns {Promise|null}
-     */
-	def options path\string, config\RequestHandle = null
+	def options\Promise|null path\string, config\RequestHandle = null
 		self.sendRequest('options', path, config)
 
-	/**
-     * Send delete request.
-     *
-     * @param {string} path route path.
-	 * @param {RequestHandle|null} config
-     * @returns {Promise|null}
-     */
-	def patch path\string, config\RequestHandle = null
+	def patch\Promise|null path\string, config\RequestHandle = null
 		self.sendRequest('patch', path, config)
 
-	# Send request on specified route.
 	def on\Promise<any> name\string, params\object|RequestHandle = {}, config\RequestHandle = null
 		config = (config == null || config == undefined) && (params.onSuccess || params.onError || params.onComplete) ? params : config
 		params = params.onSuccess || params.onError || params.onComplete ? {} : params
@@ -281,15 +157,37 @@ export class Form
 
 		sendRequest(route.method, route.toPath(), config)
 
-	/**
-     * Send request.
-     *
-     * @param {string} method request method.
-     * @param {string} path route path.
-	 * @param {RequestHandle|null} config
-     * @returns {Promise|null}
-     */
-	def sendRequest method\string, path\string, config\RequestHandle = null
+	def as\Form method\string, path\string
+		self.request = {
+			method: method
+			path: path
+		}
+
+		this
+
+	def asRoute\Form name\string, params\object = {}
+		const route = new Route(name, params)
+
+		self.request = {
+			method: route.method
+			path: route.toPath()
+		}
+
+		this
+
+	def submit\Promise|null config\RequestHandle = null
+		this.config.customHeaders = {}
+
+		sendRequest(self.request.method, self.request.path, config)
+
+	def validate\Promise|null input\string|string[]
+		self.config.customHeaders = {
+			'X-FORMIDABLE-VALIDATE': Array.isArray(input) ? input.join(',') : input
+		}
+
+		sendRequest(self.request.method, self.request.path, self.config)
+
+	def sendRequest\Promise|null method\string, path\string, config\RequestHandle = null
 		self.isProcessing(true).fill!
 
 		const args\any[] = [ path ]
@@ -308,8 +206,12 @@ export class Form
 		if self.hasFiles?
 			self.headers['Content-Type'] = 'multipart/form-data'
 
+		const headers = {}
+
+		Object.assign(headers, self.headers, (config && config.customHeaders) ? config.customHeaders : {})
+
 		args.push {
-			headers: self.headers
+			headers: headers
 		}
 
 		args[args.length - 1]['onUploadProgress'] = do(progressEvent)
@@ -337,6 +239,12 @@ export class Form
 					self.recentlySuccessful = false
 					imba.commit!
 
+				if response.status === 204 && config && config.customHeaders && config.customHeaders['X-FORMIDABLE-VALIDATE']
+					const input = config.customHeaders['X-FORMIDABLE-VALIDATE'].split(',')
+
+					for key in input
+						delete self.errors[key] if self.errors[key]
+
 				if config && config.onSuccess
 					config.onSuccess(response)
 
@@ -346,7 +254,11 @@ export class Form
 				self.#success = false
 
 				if error.response
-					if error.response.status === 422 then self.errors = error.response.data.errors
+					if error.response.status === 422
+						if config && config.customHeaders && config.customHeaders['X-FORMIDABLE-VALIDATE']
+							self.errors = Object.assign(self.errors, error.response.data.errors)
+						else
+							self.errors = error.response.data.errors
 
 					/** set fatal error. */
 					if error.response.status !== 422 && typeof error.response.status === 'number'
@@ -373,12 +285,7 @@ export class Form
 					config.onComplete!
 			)
 
-	/**
-     * Get request body object.
-     *
-     * @returns {object} body
-     */
-	def body
+	def body\object
 		const body = {}
 
 		Object.keys(self.form).forEach do(key)
@@ -386,7 +293,7 @@ export class Form
 
 		body
 
-	def renderError error
+	def renderError error\AxiosError
 		const errorElement = document.createElement('iframe')
 		const container    = document.createElement('div')
 		const backdrop     = document.createElement('div')
