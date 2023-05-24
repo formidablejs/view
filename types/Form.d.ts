@@ -1,6 +1,11 @@
 import { AxiosResponse } from "axios";
 import { FormConfig, RequestHandle, UploadProgress } from "../ts";
 
+type FormRequest = {
+    method: string;
+    path: string;
+}
+
 export class Form<T> {
     /**
          * Instantiate form.
@@ -25,6 +30,7 @@ export class Form<T> {
     errors: Record<keyof T, string[]>;
     formWasFilled: boolean;
     recentlySuccessful: boolean;
+    request?: FormRequest;
     headers: {};
     /**
          * Reset form.
@@ -325,6 +331,12 @@ export class Form<T> {
     patch(path: string, config?: RequestHandle | null): Promise<AxiosResponse>;
 
     on(name: string, params?: object|RequestHandle, config?: RequestHandle): Promise<AxiosResponse>;
+
+    as(method: string, path: string): Form<T>;
+
+    validate(input: keyof T | keyof T[]): Promise<AxiosResponse>
+
+    submit(config?: RequestHandle): Promise<AxiosResponse>;
 
     /**
          * Send request.

@@ -20,6 +20,8 @@ export class Form
 		percentage: null
 	}
 
+	prop request = null
+
 	prop headers = {
 		'X-FORMIDABLE-REQUEST': true
 	}
@@ -281,6 +283,26 @@ export class Form
 
 		sendRequest(route.method, route.toPath(), config)
 
+	def as method\string, path\string
+		self.request = {
+			method: method
+			path: path
+		}
+
+		this
+
+	def submit config\RequestHandle = null
+		this.config.customHeaders = {}
+
+		sendRequest(self.request.method, self.request.path, config)
+
+	def validate input\string|string[]
+		self.config.customHeaders = {
+			'X-FORMIDABLE-VALIDATE': Array.isArray(input) ? input.join(',') : input
+		}
+
+		sendRequest(self.request.method, self.request.path, self.config)
+
 	/**
      * Send request.
      *
@@ -308,8 +330,12 @@ export class Form
 		if self.hasFiles?
 			self.headers['Content-Type'] = 'multipart/form-data'
 
+		const headers = {}
+
+		Object.assign(headers, self.headers, (config && config.customHeaders) ? config.customHeaders : {})
+
 		args.push {
-			headers: self.headers
+			headers: headers
 		}
 
 		args[args.length - 1]['onUploadProgress'] = do(progressEvent)
@@ -337,6 +363,12 @@ export class Form
 					self.recentlySuccessful = false
 					imba.commit!
 
+				if response.status === 204 && config && config.customHeaders && config.customHeaders['X-FORMIDABLE-VALIDATE']
+					const input = config.customHeaders['X-FORMIDABLE-VALIDATE'].split(',')
+
+					for key in input
+						delete self.errors[key] if self.errors[key]
+
 				if config && config.onSuccess
 					config.onSuccess(response)
 
@@ -346,7 +378,11 @@ export class Form
 				self.#success = false
 
 				if error.response
-					if error.response.status === 422 then self.errors = error.response.data.errors
+					if error.response.status === 422
+						if config && config.customHeaders && config.customHeaders['X-FORMIDABLE-VALIDATE']
+							self.errors = Object.assign(self.errors, error.response.data.errors)
+						else
+							self.errors = error.response.data.errors
 
 					/** set fatal error. */
 					if error.response.status !== 422 && typeof error.response.status === 'number'
