@@ -17,11 +17,11 @@
     "imba:watch": "imbac -w src --output=lib --platform=browser --clean"
   },
   "peerDependencies": {
-    "@formidablejs/framework": ">=0.10.0",
+    "@formidablejs/framework": ">=0.20.0",
     "axios": "*"
   },
   "devDependencies": {
-    "@formidablejs/framework": "^0.13.12",
+    "@formidablejs/framework": "^0.20.0",
     "@formidablejs/stubs": "^0.4.0",
     "@types/node": "^18.0.6",
     "axios": "^1.1.3",
