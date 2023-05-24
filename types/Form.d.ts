@@ -152,7 +152,7 @@ export class Form<T> {
 	 */
     get hasFilesΦ(): boolean;
 
-    get progress(): UploadProgress?;
+    get progress(): UploadProgress | null;
 
     /**
          * Clear all errors.
