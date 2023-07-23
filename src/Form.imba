@@ -214,6 +214,13 @@ export class Form
 			headers: headers
 		}
 
+		if config && config.canAbort
+			const abortController = new AbortController!
+
+			args[args.length - 1]['signal'] = abortController.signal
+
+			config.canAbort(abortController)
+
 		args[args.length - 1]['onUploadProgress'] = do(progressEvent)
 			self.#_progress.loaded = progressEvent.loaded
 			self.#_progress.total = progressEvent.total
@@ -252,6 +259,9 @@ export class Form
 			)
 			.catch(do(error)
 				self.#success = false
+
+				if globalThis.axios.isCancel(error)
+					return console.error(error.message)
 
 				if error.response
 					if error.response.status === 422
