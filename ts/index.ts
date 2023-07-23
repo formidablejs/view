@@ -18,6 +18,7 @@ export type RequestHandle = {
     onSuccess?: (response: AxiosResponse) => void;
     onError?: (error: AxiosError) => void;
     onComplete?: () => void;
+    canAbort?: (abortController: AbortController) => void;
 }
 
 declare global {
