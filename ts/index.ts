@@ -1,4 +1,4 @@
-import type { AxiosError, AxiosResponse, AxiosStatic } from "axios";
+import type { AxiosError, AxiosResponse, AxiosStatic } from 'axios'
 
 export type FormConfig = {
     headers?: object;
@@ -15,10 +15,11 @@ export type UploadProgress = {
 }
 
 export type RequestHandle = {
-    onSuccess?: (response: AxiosResponse) => void;
-    onError?: (error: AxiosError) => void;
-    onComplete?: () => void;
     canAbort?: (abortController: AbortController) => void;
+    onAbort?: (error: Error | AxiosError) => void;
+    onComplete?: () => void;
+    onError?: (error: Error | AxiosError) => void;
+    onSuccess?: (response: AxiosResponse) => void;
 }
 
 declare global {
