@@ -261,7 +261,7 @@ export class Form
 				self.#success = false
 
 				if globalThis.axios.isCancel(error)
-					return console.error(error.message)
+					return config.onAbort ? config.onAbort(error) : console.error(error.message)
 
 				if error.response
 					if error.response.status === 422
