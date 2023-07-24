@@ -16,8 +16,9 @@ export type UploadProgress = {
 
 export type RequestHandle = {
     onSuccess?: (response: AxiosResponse) => void;
-    onError?: (error: AxiosError) => void;
+    onError?: (error: Error | AxiosError) => void;
     onComplete?: () => void;
+    onAbort?: (error: Error | AxiosError) => void;
     canAbort?: (abortController: AbortController) => void;
 }
 
