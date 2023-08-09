@@ -90,7 +90,7 @@ export class Form<T> {
     /**
      * Clear all errors.
      */
-    clearErrors(): Form<T>;
+    clearErrors(): T & Form<T>;
 
     /**
      * Fill Form body.
@@ -100,7 +100,7 @@ export class Form<T> {
     /**
      * Change processing status.
      */
-    isProcessing(processing?: boolean): Form<T>;
+    isProcessing(processing?: boolean): T & Form<T>;
 
     /**
      * Send get request.
@@ -145,12 +145,12 @@ export class Form<T> {
     /**
      * Set request method and path.
      */
-    as(method: string, path: string): Form<T>;
+    as(method: string, path: string): T & Form<T>;
 
     /**
      * Set request method and path using route name.
      */
-    asRoute(name: string, params?: object): Form<T>;
+    asRoute(name: string, params?: object): T & Form<T>;
 
     /**
      * Validate input.
