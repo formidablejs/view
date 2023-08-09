@@ -232,28 +232,28 @@ export class Form
 
 		globalThis.axios[method.toLowerCase!](...args)
 			.then(do(response)
-				self.#success = true
-				self.recentlySuccessful = true
-				self.form = self.body!
-
-				/** clear fatal error. */
-				self.#fatal = {
-					error: null
-					response: null
-				}
-
-				setTimeout(&, self.config.recentlySuccessful || 2000) do
-					self.recentlySuccessful = false
-					imba.commit!
-
 				if response.status === 204 && config && config.customHeaders && config.customHeaders['X-FORMIDABLE-VALIDATE']
 					const input = config.customHeaders['X-FORMIDABLE-VALIDATE'].split(',')
 
 					for key in input
 						delete self.errors[key] if self.errors[key]
+				else
+					self.#success = true
+					self.recentlySuccessful = true
+					self.form = self.body!
 
-				if config && config.onSuccess
-					config.onSuccess(response)
+					/** clear fatal error. */
+					self.#fatal = {
+						error: null
+						response: null
+					}
+
+					setTimeout(&, self.config.recentlySuccessful || 2000) do
+						self.recentlySuccessful = false
+						imba.commit!
+
+					if config && config.onSuccess
+						config.onSuccess(response)
 
 				response
 			)
