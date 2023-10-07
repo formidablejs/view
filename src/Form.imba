@@ -44,6 +44,7 @@ export class Form
 		self.config = {
 			recentlySuccessful: config.recentlySuccessful ?? (globalConfig.recentlySuccessful ?? undefined)
 			renderServerError: config.renderServerError ?? (globalConfig.renderServerError ?? undefined)
+			timeout: config.timeout ?? (globalConfig.timeout ?? undefined)
 		}
 
 		if self.config.headers
@@ -220,6 +221,11 @@ export class Form
 			args[args.length - 1]['signal'] = abortController.signal
 
 			config.canAbort(abortController)
+
+		if config && config.timeout
+			args[args.length - 1]['timeout'] = config.timeout
+		elif config && this.config.timeout
+			args[args.length - 1]['timeout'] = self.config.timeout
 
 		args[args.length - 1]['onUploadProgress'] = do(progressEvent)
 			self.#_progress.loaded = progressEvent.loaded
