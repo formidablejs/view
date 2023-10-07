@@ -1,16 +1,23 @@
-const { current } = require '../storage/framework/address.json'
-const { SuperTest, Response } = require 'supertest'
-const request = require 'supertest'
+const formidable = require('../.formidable/build').default
+const supertest = require('supertest')
 
 describe 'Application (e2e)', do
-	# @type {SuperTest}
 	let app
 
-	beforeAll do app = request current
+	beforeAll do
+		const application = await formidable
+
+		app = application.fastify()
+
+		await app.ready()
+
+	afterAll do
+		await app.close()
 
 	it '/ (GET: Welcome)', do
-		# @type {Response}
-		const response = await app.get '/'
-
-		expect(response.status).toEqual(200)
-		expect(response.text).toContain('Yey! You have successfully created a new Formidable project.')
+		supertest(app.server)
+			.get('/')
+			.expect(200)
+			.expect(do(res)
+				expect(res.text).toContain('Yey! You have successfully created a new Formidable project.')
+			)

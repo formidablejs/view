@@ -1,22 +1,27 @@
-const { current } = require('../storage/framework/address.json');
-const request = require('supertest');
+const formidable = require('../.formidable/build').default
+const supertest = require('supertest')
 
 describe('Application (e2e)', () => {
-	let app;
+    let app
 
-	beforeAll(() => app = request(current));
+    beforeAll(() => {
+        const application = await formidable
 
-	it('/ (GET: Hello World)', () => {
-		app.get('/')
-			.set('Accept-Language', 'en')
-			.expect(200)
-			.expect('Hello World');
-	});
+        app = application.fastify()
 
-	it('/ (GET: Hola Mundo)', () => {
-		app.get('/')
-			.set('Accept-Language', 'es')
-			.expect(200)
-			.expect('Hola Mundo')
-	});
-});
+        await app.ready()
+    })
+
+    afterAll(() => {
+        await app.close()
+    })
+
+    it('/ (GET: Welcome)', () => {
+        supertest(app.server)
+            .get('/')
+            .expect(200)
+            .expect((res) => {
+                expect(res.text).toContain('Yey! You have successfully created a new Formidable project.')
+            })
+    })
+})

@@ -3,6 +3,7 @@ import type { AxiosError, AxiosResponse, AxiosStatic } from 'axios'
 export type FormConfig = {
     headers?: object;
     recentlySuccessful?: number;
+    timeout?: number;
     renderServerError?: boolean;
 }
 
@@ -20,6 +21,7 @@ export type RequestHandle = {
     onComplete?: () => void;
     onError?: (error: Error | AxiosError) => void;
     onSuccess?: (response: AxiosResponse) => void;
+    timeout?: number;
 }
 
 declare global {
