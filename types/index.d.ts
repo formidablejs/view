@@ -9,9 +9,11 @@ import { Props } from "./useProp";
 import { readProps } from "./readProps";
 import { Route } from "./useRoute";
 import { trim } from "./trim";
+import { UrlState } from "./UrlState";
 import { useForm } from "./useForm";
 import { useProp } from "./useProp";
 import { useRoute } from "./useRoute";
+import { useUrlState } from "./useUrlState";
 import { waitForProps } from "./useProp";
 
 export {
@@ -26,8 +28,10 @@ export {
     readProps,
     Route,
     trim,
+    UrlState,
     useForm,
     useProp,
     useRoute,
+    useUrlState,
     waitForProps
 };
