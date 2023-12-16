@@ -12,4 +12,11 @@ export function documentParams<T = unknown>(): T
 
 export class UrlState<T> {
     constructor(params: T, config: UrlStateConfig<T>)
+
+    /**
+     * Update url state without triggering onChange event.
+     *
+     * @throws {Error} If key is not allowed.
+     */
+    quitelyUpdate<K extends keyof T>(key: K, value: T[K]): boolean
 }
