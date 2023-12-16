@@ -42,13 +42,37 @@ export class UrlState
 		if #config.onPageLoad
 			#config.onPageLoad pageParams, #params
 
-		populate params, Object.keys params
+		const allowedKeys = Object.keys params
+
+		populate params, allowedKeys
+
+		window.addEventListener 'popstate', do(event)
+			const pageParams = documentParams!
+
+			#params = { ...initialParams }
+
+			for key in allowedKeys when pageParams[key] != undefined and pageParams[key] != '' and pageParams[key] != null
+				#params[key] = pageParams[key]
+
+			if #config.onPageLoad
+				#config.onPageLoad pageParams, #params
 
 		if #config.onInitialLoad
 			#config.onInitialLoad initialParams
 
 		return new Proxy this, {
 			get: do(target, key, e)
+				if key == 'quitelyUpdate'
+					return do(key, value)
+						if #params[key] !== undefined
+							update {[key]: value}
+
+							#params[key] = value
+
+							return true
+
+						throw new Error "UrlState: no such param: {key}"
+
 				if params[key] !== undefined then return #params[key]
 
 				throw new Error "UrlState: no such param: {key}"
