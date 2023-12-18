@@ -9,7 +9,10 @@
   "publisher": "formidable/Package.js",
   "bugs": "https://github.com/formidablejs/view/issues",
   "homepage": "https://formidablejs.org",
-  "repository": "https://github.com/formidablejs/view",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/formidablejs/view.git"
+  },
   "scripts": {
     "build": "npm run imba:build && npm run imba:build:temp",
     "imba:build": "imbac src --output=lib --platform=browser --format=cjs --clean",
