@@ -11,7 +11,7 @@ export function populate<T = unknown>(params: T, allowedKeys: string[]): void
 export function documentParams<T = unknown>(): T
 
 export class UrlState<T> {
-    constructor(params: T, config: UrlStateConfig<T>)
+    constructor(params: T, config?: UrlStateConfig<T>)
 
     /**
      * Update url state without triggering onChange event.
