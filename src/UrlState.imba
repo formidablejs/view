@@ -14,9 +14,14 @@ export def update\void params\object
 	window.history.pushState({path: updatedUrl}, '', updatedUrl)
 
 export def populate params, allowedKeys = []
+	const paramsToPopulate = {}
+
 	Object.keys(params).forEach do(key)
 		if allowedKeys.includes(key) && params[key] !== null && params[key] !== ''
-			update {[key]: params[key]}
+			paramsToPopulate[key] = params[key]
+
+	if Object.keys(paramsToPopulate).length > 0
+		update paramsToPopulate
 
 export def documentParams
 	let searchParams = new URLSearchParams(window.location.search)
@@ -65,8 +70,6 @@ export class UrlState
 				if key == 'quitelyUpdate'
 					return do(key, value)
 						if #params[key] !== undefined
-							update {[key]: value}
-
 							#params[key] = value
 
 							return true
@@ -79,9 +82,9 @@ export class UrlState
 
 			set: do(target, key, value)
 				if params[key] !== undefined
-					update {[key]: value}
-
 					#params[key] = value
+
+					update #params
 
 					if #config.onChange
 						#config.onChange key, value, #params
