@@ -1,4 +1,3 @@
-import { config } from '@formidablejs/framework'
 import { View } from '@formidablejs/framework'
 import { Props } from '@formidablejs/view'
 
