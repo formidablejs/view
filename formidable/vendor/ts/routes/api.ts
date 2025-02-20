@@ -12,5 +12,7 @@ import { Route } from '@formidablejs/framework'
  */
 
 Route.get('/user', (request: Request) => {
-	return request.auth().user()
+	return without(request.auth().user(), [
+        'password', 'remember_token'
+    ])
 }).middleware(['auth'])
