@@ -9,6 +9,18 @@
   "publisher": "formidable/Package.js",
   "bugs": "https://github.com/formidablejs/view/issues",
   "homepage": "https://formidablejs.org",
+  "exports": {
+    ".": {
+        "import": "./lib/index.js",
+        "require": "./lib/index.js",
+        "types": "./types/index.d.ts"
+    },
+    "./server": {
+        "import": "./lib/server.js",
+        "require": "./lib/server.js",
+        "types": "./types/server.d.ts"
+    }
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/formidablejs/view.git"
