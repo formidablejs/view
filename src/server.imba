@@ -1,3 +1,3 @@
-import { ViewServiceResolver } from './ViewServiceResolver'
+const { ViewServiceResolver } = require './ViewServiceResolver'
 
-export { ViewServiceResolver }
+exports.ViewServiceResolver = ViewServiceResolver

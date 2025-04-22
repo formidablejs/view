@@ -1,11 +1,11 @@
-import { ServiceResolver } from '@formidablejs/framework'
-import { Route } from '@formidablejs/framework'
-import { View } from '@formidablejs/framework'
-import { without } from '@formidablejs/framework/lib/Support/Helpers'
-import { imbaEnv } from '@formidablejs/framework/lib/Support/Helpers'
-import { MakeFormCommand } from './Commands/MakeFormCommand'
+const { ServiceResolver } = require '@formidablejs/framework'
+const { Route } = require '@formidablejs/framework'
+const { View } = require '@formidablejs/framework'
+const { without } = require '@formidablejs/framework/lib/Support/Helpers'
+const { imbaEnv } = require '@formidablejs/framework/lib/Support/Helpers'
+const { MakeFormCommand } = require './Commands/MakeFormCommand'
 
-export class ViewServiceResolver < ServiceResolver
+exports.ViewServiceResolver = class ViewServiceResolver < ServiceResolver
 
 	def routes
 		const named = {}
