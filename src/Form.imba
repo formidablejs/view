@@ -101,7 +101,7 @@ export class Form
 		let files = false
 
 		Object.values(this.body!).forEach(do(i)
-			if i instanceof File
+			if i instanceof File || i instanceof FileList
 				files = true
 		)
 
